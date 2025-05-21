@@ -1,0 +1,153 @@
+/* @layer components {
+  .vp-toc-placeholder {
+    @apply sticky mx-auto px-2 z-50;
+
+    top: calc(var(--navbar-height) + --spacing(4));
+  }
+  .vp-toc {
+    @apply absolute;
+    @apply min-w-[10rem];
+    @apply max-w-[15rem];
+    @apply mb-0;
+    @apply rounded-none;
+    @apply bg-transparent;
+    @apply start-[calc(100%+1rem)];
+
+  }
+  .vp-toc-header {
+    @apply pt-0 text-sm py-2 px-4 font-semibold flex-space-1 items-center;
+    @apply justify-between;
+  }
+  .vp-toc-wrapper {
+    @apply relative;
+    @apply overflow-x-hidden overflow-y-auto;
+    @apply m-2;
+    @apply text-ellipsis;
+    @apply whitespace-nowrap;
+    @apply scroll-smooth;
+    @apply transition-[height];
+    @apply h-auto max-h-[75vh];
+  }
+  .vp-toc-list {
+    @apply ps-2 relative m-0 p-0 list-none;
+  }
+  .vp-toc-wrapper > .vp-toc-list {
+    &::before {
+      @apply absolute inset-y-0 start-1 -z-10 w-[2px] bg-gray-200 content-['\00a0'];
+    }
+  }
+  .vp-toc-item {
+    @apply px-2 relative box-border h-8 list-none leading-8;
+  }
+  .vp-toc-link {
+    @apply text-sm relative block max-w-full text-gray-500 leading-[inherit] truncate;
+    &.active {
+      @apply text-primary font-semibold;
+    }
+  }
+  .vp-toc-marker {
+    @apply absolute start-1 top-0 z-[2] w-[2px] h-8 bg-primary transition-[top] duration-300;
+  }
+}
+ */
+@utility w-toc {
+  width: var(--toc-width);
+}
+@layer components {
+  .vp-toc-placeholder {
+    @apply sticky mx-auto px-2 z-50;
+    top: calc(var(--navbar-height) + --spacing(6));
+  }
+
+  .vp-toc {
+    @apply absolute;
+    @apply start-[calc(100%+--spacing(4))];
+    @apply w-toc;
+    @apply h-auto;
+    @apply max-h-[80vh];
+    @apply flex flex-col;
+    @apply text-sm;
+    /* @apply border-dotted-red; */
+    @apply px-3 py-2;
+  }
+  .vp-toc-header {
+    @apply text-sm font-semibold;
+    @apply flex justify-between items-center;
+    @apply py-2;
+  }
+  .vp-toc-wrapper {
+    @apply flex-1 relative;
+    @apply overflow-x-hidden overflow-y-auto;
+    @apply text-ellipsis whitespace-nowrap;
+    @apply scroll-smooth;
+    @apply transition-[height];
+    /* @apply border-dotted-blue; */
+  }
+  .vp-toc-list {
+    @apply relative;
+    @apply list-none m-0 p-0;
+    @apply ps-2;
+  }
+  .vp-toc-wrapper > .vp-toc-list {
+    @apply border-s-[2px] border-gray-200 dark:border-gray-700;
+    /* &::before {
+      @apply absolute inset-y-0 start-1 -z-10 w-[2px] bg-gray-200 content-['\00a0'];
+    } */
+  }
+  .vp-toc-item {
+    @apply relative;
+    @apply box-border list-none;
+    @apply leading-7;
+  }
+  .vp-toc-link {
+    @apply block w-full;
+    @apply text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary;
+    @apply truncate;
+    @apply text-sm;
+    @apply leading-[inherit];
+    @apply transition-colors duration-300;
+    &.level-2 {
+      @apply ps-0;
+    }
+    &.level-3 {
+      @apply ps-3;
+    }
+    &.level-4 {
+      @apply ps-5;
+    }
+    &.level-5 {
+      @apply ps-7;
+    }
+    &.level-6 {
+      @apply ps-10;
+    }
+    &.active {
+      @apply text-primary font-semibold;
+    }
+  }
+  .vp-toc-marker {
+    @apply absolute start-0 top-0 z-[2] w-[2px] h-7 bg-primary transition-[top] duration-300;
+  }
+  /*.vp-toc-wrapper > .vp-toc-list::before {
+    @apply absolute inset-y-0 start-1 -z-10 w-[2px] bg-gray-200 content-[''];
+  }
+
+  .vp-toc-marker {
+    @apply absolute start-1 top-0 z-[2] w-[2px] h-8 bg-primary transition-all duration-300;
+  }
+
+  .vp-toc-item {
+    @apply px-2 relative box-border h-8 list-none leading-8;
+  }
+
+  .vp-toc-link {
+    @apply text-sm relative block max-w-full text-gray-500 leading-[inherit] truncate;
+    &.active {
+      @apply text-primary font-semibold;
+    }
+  }
+
+  .vp-toc-header {
+    @apply pt-0 text-sm py-2 px-4 font-semibold flex justify-between items-center;
+  }*/
+}

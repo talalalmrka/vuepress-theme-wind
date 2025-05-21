@@ -1,0 +1,116 @@
+@layer components {
+  .vp-navbar {
+    @apply relative flex items-center justify-between px-4 sm:px-6 lg:px-8;
+    @apply sticky top-0 z-30;
+    height: var(--navbar-height);
+    @apply bg-body/70 dark:bg-body-dark/70;
+    @apply backdrop-blur-md;
+    @apply backdrop-saturate-150;
+    @apply shadow-xs;
+    /* @applydark:shadow-black; */
+    @apply transition-all duration-150 ease-in-out;
+    .vp-navbar-link,
+    .vp-dropdown-link {
+      &.active,
+      &.route-link-active {
+        @apply text-primary dark:text-primary-300;
+      }
+    }
+    &.transparent {
+      @apply bg-transparent;
+      @apply shadow-none dark:shadow-none;
+      @apply backdrop-blur-none dark:backdrop-blur-none;
+      @apply backdrop-saturate-100;
+    }
+  }
+  .vp-home {
+    .vp-navbar {
+      @apply fixed top-0 inset-x-0;
+    }
+  }
+  .vp-navbar-nav {
+    @apply flex-space-2 md:flex-space-3 items-center;
+    &.vp-navbar-collapse {
+      @apply hidden;
+
+      &.expand-sm {
+        @apply sm:flex;
+      }
+
+      &.expand-md {
+        @apply md:flex;
+      }
+
+      &.expand-lg {
+        @apply lg:flex;
+      }
+
+      &.expand-xl {
+        @apply xl:flex;
+      }
+    }
+  }
+  .vp-navbar-link,
+  .vp-navbar-brand,
+  .vp-sidebar-toggle {
+    @apply flex-space-1 items-center text-sm font-medium;
+    @apply text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100;
+    @apply transition-colors duration-150 ease-in-out;
+  }
+  .vp-sidebar-toggle {
+    @apply flex items-center text-2xl;
+    @apply md:hidden;
+  }
+  .vp-navbar-logo {
+    @apply h-8 w-auto;
+  }
+  .vp-navbar-brand {
+    @apply text-xl font-bold;
+  }
+  .vp-dark-mode-link,
+  .vp-repo-link {
+    @apply text-xl;
+  }
+  .vp-dropdown {
+    @apply relative;
+    @variant hover {
+      .vp-dropdown-menu {
+        @apply visible;
+      }
+      .vp-dropdown-icon {
+        @apply rotate-180;
+      }
+    }
+  }
+  .vp-dropdown-menu {
+    @apply absolute z-50 min-w-42 flex flex-col;
+    @apply rounded-lg;
+    @apply bg-body/90 dark:bg-body-dark/90;
+    @apply backdrop-blur-md backdrop-saturate-150;
+    @apply border;
+    @apply shadow-xs;
+    @apply transition-all duration-150 ease-in-out;
+    @apply collapse;
+  }
+  .vp-dropdown-icon {
+    @apply text-xs;
+    @apply transition-all duration-150 ease-in-out;
+  }
+  .vp-dropdown-link {
+    @apply flex-space-1 inline-flex;
+    @apply px-3 py-2 text-sm font-medium;
+    @apply text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100;
+    @apply transition-all duration-150 ease-in-out w-full;
+    @apply hover:bg-black/5;
+    &:first-child {
+      @apply rounded-t-lg;
+    }
+    &:last-child {
+      @apply rounded-b-lg;
+    }
+    &.active,
+    &.route-link-active {
+      @apply text-primary dark:text-primary-400;
+    }
+  }
+}

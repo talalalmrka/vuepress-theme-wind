@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@theme": ["./src"],
+      "@theme/*": ["./src/*"],
+      "@theme/client/*": ["./src/client/*"],
+      "@theme/client": ["./src/client"],
+      "@theme/shared/*": ["./src/shared/*"],
+      "@theme/node/*": ["./src/node/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/shared/**/*.ts",
+    "src/shared/**/*.d.ts",
+    "src/client/**/*.ts",
+    "src/client/**/*.d.ts",
+    "src/client/**/*.tsx",
+    "src/client/**/*.vue",
+    "src/node/**/*.ts",
+    "src/node/**/*.d.ts",
+    "src/node/**/*.tsx",
+    "src/node/**/*.vue"
+  ]
+}

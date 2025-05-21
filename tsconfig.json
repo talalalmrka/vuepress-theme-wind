@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "baseUrl": ".",
+    "paths": {
+      "@theme/*": ["src/*"]
+    },
+    "types": ["vuepress/client", "vuepress/client-types", "vite/client"],
+    "outDir": "lib",
+    "declaration": true,
+    "declarationDir": "lib/types"
+  },
+  "include": [
+    "env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/shared/**/*.ts",
+    "src/shared/**/*.d.ts",
+    "src/client/**/*.ts",
+    "src/client/**/*.d.ts",
+    "src/client/**/*.tsx",
+    "src/client/**/*.vue",
+    "src/node/**/*.ts",
+    "src/node/**/*.d.ts",
+    "src/node/**/*.tsx",
+    "src/node/**/*.vue"
+  ],
+  "exclude": ["node_modules", "lib", "docs"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

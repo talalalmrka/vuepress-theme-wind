@@ -1,0 +1,20 @@
+@utility h-toc {
+  height: var(--toc-height);
+}
+
+@utility border-dotted-* {
+  border-style: dotted;
+  border-width: 1px;
+  border-color: --value(--color- *);
+  @variant dark {
+    border-color: --value(--color- * -400);
+  }
+}
+@utility border-dashed-* {
+  border-style: dashed;
+  border-width: 1px;
+  border-color: --value(--color- *);
+  @variant dark {
+    border-color: --value(--color- * -400);
+  }
+}
