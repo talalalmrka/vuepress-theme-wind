@@ -1,4 +1,4 @@
-import type { AutoLinkOptions, NavItemOptions } from "./nav";
+import type { AutoLinkOptions, NavItemOptions } from './nav'
 
 /**
  * Base nav group, has nav items children
@@ -7,26 +7,24 @@ export interface NavGroup<T> extends NavItemOptions {
   /**
    * Link prefix of current group
    */
-  prefix?: string;
+  prefix?: string
 
   /**
    * Link of current group
    */
-  link?: string;
+  link?: string
 
   /**
    * Children of current group
    */
-  children: T[];
+  children: T[]
 }
 
 // Navbar types
 
 // types for NavbarItem
-export type NavbarLinkOptions = AutoLinkOptions | string;
+export type NavbarLinkOptions = AutoLinkOptions | string
 // types for NavbarDropdown
-export type NavbarGroupOptions = NavGroup<
-  NavbarLinkOptions | NavGroup<NavbarLinkOptions>
->;
+export type NavbarGroupOptions = NavGroup<NavbarLinkOptions | NavGroup<NavbarLinkOptions>>
 // types for navbar options
-export type NavbarOptions = (NavbarGroupOptions | NavbarLinkOptions)[] | false;
+export type NavbarOptions = (NavbarGroupOptions | NavbarLinkOptions)[] | false

@@ -15,21 +15,32 @@
   --color-primary-950: var(--color-emerald-950);
   --color-primary-hover: var(--color-emerald-700);
 
+  /* Breakpoints */
+  --breakpoint-sm: 24rem;
+  --breakpoint-xs: 20rem;
   /* Body */
   --color-body: var(--color-white);
   --color-body-dark: var(--color-gray-900);
 
   /* Border */
   --color-border: var(--color-gray-200);
-  --color-border-dark: var(--color-gray-950);
+  /* --color-border-dark: var(--color-gray-950); */
+  --color-border-dark: var(--color-gray-700);
 
   /* Navbar */
-  --navbar-height: --spacing(14);
+  --navbar-height: --spacing(13);
+  --container-navbar: --spacing(13);
+  --spacing-navbar: --spacing(13);
 
   /* Sidebar */
   --sidebar-width: --spacing(72);
+  --container-sidebar: --spacing(72);
+  --spacing-sidebar: --spacing(72);
 
   /* TOC */
-  --toc-width: --spacing(56);
-  --toc-height: 75vh;
+  --toc-width: --spacing(48);
+  --container-toc: --spacing(48);
+  --spacing-toc: --spacing(48);
+  --container-toc-height: 80vh;
+  --spacing-toc-height: 80vh;
 }

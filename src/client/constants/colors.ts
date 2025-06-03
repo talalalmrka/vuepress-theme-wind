@@ -24,5 +24,5 @@ export const colors = [
   'gray',
   'zinc',
   'neutral',
-  'stone',
+  'stone'
 ]

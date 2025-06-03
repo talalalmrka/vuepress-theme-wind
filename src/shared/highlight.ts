@@ -1,5 +1,5 @@
-import { PrismjsPluginOptions } from "@vuepress/plugin-prismjs";
-import { ShikiPluginOptions } from "@vuepress/plugin-shiki";
+import { PrismjsPluginOptions } from '@vuepress/plugin-prismjs'
+import { ShikiPluginOptions } from '@vuepress/plugin-shiki'
 /* export type HighlighterType = "prismjs" | "shiki";
 export type HighlighterPluginOptions =
   | ({
@@ -16,8 +16,8 @@ export interface HighlighterOptions {
 
 export type HighlighterOptions =
   | ({
-      type: "prismjs";
+      type: 'prismjs'
     } & PrismjsPluginOptions)
   | ({
-      type: "shiki";
-    } & ShikiPluginOptions);
+      type: 'shiki'
+    } & ShikiPluginOptions)

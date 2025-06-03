@@ -1,0 +1,14 @@
+node_modules
+dist
+build
+.next
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+docs/.vuepress/dist
+docs/.vuepress/cache
+docs/.vuepress/public
+docs/.vuepress/temp

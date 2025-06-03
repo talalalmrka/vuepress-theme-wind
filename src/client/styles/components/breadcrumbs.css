@@ -1,0 +1,22 @@
+@layer components {
+  .vp-breadcrumbs {
+    @apply mb-4 text-sm;
+  }
+
+  .vp-breadcrumbs-list {
+    @apply flex flex-wrap list-none m-0 p-0;
+  }
+
+  .vp-breadcrumbs-item {
+    @apply flex items-center;
+  }
+  .vp-breadcrumbs-link {
+    @apply flex-space-1 text-primary hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500;
+  }
+  .vp-breadcrumbs-link-current {
+    @apply flex-space-1 text-muted;
+  }
+  .vp-breadcrumbs-separator {
+    @apply mx-1 text-muted;
+  }
+}

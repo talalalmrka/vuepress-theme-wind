@@ -1,3 +1,10 @@
-@import "./components/navbar.css";
-@import "./components/sidebar.css";
-@import "./components/toc.css";
+@import './components/breadcrumbs.css';
+@import './components/feature-section.css';
+@import './components/footer.css';
+@import './components/highlight-section.css';
+@import './components/navbar.css';
+@import './components/page-header.css';
+@import './components/page-nav.css';
+@import './components/sidebar.css';
+@import './components/toc.css';
+@import './components/tooltip.css';

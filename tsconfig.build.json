@@ -10,10 +10,5 @@
     "composite": true
   },
   "include": ["./src"],
-  "exclude": [
-    "node_modules",
-    "**/__tests__/**",
-    "**/tests/**",
-    "docs"
-  ]
-} 
+  "exclude": ["node_modules", "**/__tests__/**", "**/tests/**", "docs"]
+}

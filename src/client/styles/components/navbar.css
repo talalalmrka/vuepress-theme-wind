@@ -1,13 +1,14 @@
 @layer components {
   .vp-navbar {
     @apply relative flex items-center justify-between px-4 sm:px-6 lg:px-8;
+    /* @apply fixed inset-x-0 top-0 z-30; */
     @apply sticky top-0 z-30;
-    height: var(--navbar-height);
-    @apply bg-body/70 dark:bg-body-dark/70;
+    @apply h-navbar;
+    @apply bg-body/80 dark:bg-body-dark/80;
     @apply backdrop-blur-md;
     @apply backdrop-saturate-150;
-    @apply shadow-xs;
-    /* @applydark:shadow-black; */
+    /* @apply shadow-xs; */
+    @apply border-b;
     @apply transition-all duration-150 ease-in-out;
     .vp-navbar-link,
     .vp-dropdown-link {
@@ -17,10 +18,12 @@
       }
     }
     &.transparent {
+      @apply fixed inset-x-0;
       @apply bg-transparent;
       @apply shadow-none dark:shadow-none;
       @apply backdrop-blur-none dark:backdrop-blur-none;
       @apply backdrop-saturate-100;
+      @apply border-0;
     }
   }
   .vp-home {
@@ -69,7 +72,7 @@
   }
   .vp-dark-mode-link,
   .vp-repo-link {
-    @apply text-xl;
+    @apply text-lg;
   }
   .vp-dropdown {
     @apply relative;

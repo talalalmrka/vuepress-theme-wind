@@ -1,14 +1,15 @@
-@import "tailwindcss";
-@import "fadgram-ui";
+@import 'tailwindcss';
+@import 'fadgram-ui';
 @source "../../../**/*.vue";
 @source "../../../**/*.md";
-@import "./fonts/poppins/style.css";
-@import "./variant.css";
-@import "./theme.css";
-@import "./utilities.css";
-@import "./icons.css";
-@import "./base.css";
-@import "./components.css";
+@import './fonts/poppins/style.css';
+@import './variant.css';
+@import './theme.css';
+@import './utilities.css';
+@import './transitions.css';
+@import './icons.css';
+@import './base.css';
+@import './components.css';
 /* @layer components {
   .vp-theme-content {
     h1 {

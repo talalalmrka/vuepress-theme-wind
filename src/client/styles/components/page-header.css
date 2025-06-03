@@ -1,0 +1,18 @@
+@layer components {
+  .vp-page-header {
+    @apply border-b mb-4;
+  }
+  .vp-page-title {
+    @apply flex-space-2 text-4xl;
+  }
+  .vp-page-title-icon {
+    @apply text-primary;
+  }
+  .vp-page-info {
+    @apply flex-space-2 flex-wrap items-center justify-start text-sm text-muted;
+    @apply pb-2;
+  }
+  .vp-page-info-item {
+    @apply inline-flex items-center space-x-1 rtl:space-x-reverse cursor-default text-sm text-muted;
+  }
+}

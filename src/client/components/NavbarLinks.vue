@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useThemeOptions } from '../composables'
-const themeOptions = useThemeOptions()
+import { useNavbarConfig } from '../composables/useNavbarConfig'
+const navbarLinks = useNavbarConfig()
 </script>
 
 <template>
-    <div v-if="themeOptions.navbar?.length" class="vp-navbar-nav vp-navbar-collapse expand-md">
-        <navbar-item v-for="item in themeOptions.navbar" :key="item.text" :item="item" />
-    </div>
+  <nav v-if="navbarLinks.length" class="vp-navbar-nav vp-navbar-collapse expand-md">
+    <NavbarLink v-for="item in navbarLinks" :key="item.text" :item="item" />
+  </nav>
 </template>

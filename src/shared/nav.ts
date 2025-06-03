@@ -4,6 +4,7 @@
 export interface NavItemOptions {
   text: string
   ariaLabel?: string
+  icon?: string
 }
 
 /**

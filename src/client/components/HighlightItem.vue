@@ -1,36 +1,36 @@
 <script setup lang="ts">
-import type { HighlightConfig } from "../../shared";
-import { computed } from "vue";
-import { withBase } from "vuepress/client";
-import { useDark } from "@vueuse/core";
+import type { HighlightConfig } from '../../shared'
+import { computed } from 'vue'
+import { withBase } from 'vuepress/client'
+import { useDark } from '@vueuse/core'
 const props = defineProps<{
-  config: HighlightConfig;
-}>();
-const isDark = useDark();
+  config: HighlightConfig
+}>()
+const isDark = useDark()
 const image = computed(() => {
-  const img = props.config.image;
-  return img ? withBase(img) : null;
-});
+  const img = props.config.image
+  return img ? withBase(img) : null
+})
 const bgImage = computed(() => {
   const img =
-    isDark.value && props.config.bgImageDark
-      ? props.config.bgImageDark
-      : props.config.bgImage;
-  return img ? withBase(img) : null;
-});
+    isDark.value && props.config.bgImageDark ? props.config.bgImageDark : props.config.bgImage
+  return img ? withBase(img) : null
+})
 const bgStyle = computed(() => {
   return bgImage.value
     ? {
-        backgroundImage: `url(${bgImage.value})`,
+        backgroundImage: `url(${bgImage.value})`
       }
-    : {};
-});
+    : {}
+})
 </script>
 
 <template>
   <div
     class="vp-highlight-wrapper py-14 bg-cover bg-center bg-norepeat bg-fixed"
     :style="bgStyle"
+    v-bind="$attrs"
+    :class="config.class"
   >
     <div class="container">
       <!-- highlights -->
@@ -39,13 +39,10 @@ const bgStyle = computed(() => {
         class="flex flex-col md:flex-row items-center justify-center gap-10"
       >
         <div class="md:w-1/3">
-          <img v-if="image" :src="image" class="w-48" alt="Highlight Image" />
+          <img v-if="image" :src="image" class="w-40" alt="Highlight Image" />
         </div>
         <div class="md:w-2/3">
-          <h2
-            v-if="config.header"
-            class="mb-6 border-b-0 text-2xl md:text-3xl font-semibold"
-          >
+          <h2 v-if="config.header" class="mb-6 border-b-0 text-2xl md:text-3xl font-semibold">
             {{ config.header }}
           </h2>
           <p v-if="config.description" class="">
@@ -76,10 +73,7 @@ const bgStyle = computed(() => {
                 </p>
               </a>
               <div v-else>
-                <h3
-                  v-if="item.title"
-                  class="flex-space-1 mb-0 py-1 text-base md:text-lg"
-                >
+                <h3 v-if="item.title" class="flex-space-1 mb-0 py-1 text-base md:text-lg">
                   <fg-icon :icon="item.icon" class="" />
                   <span>{{ item.title }}</span>
                 </h3>
@@ -97,16 +91,8 @@ const bgStyle = computed(() => {
     </div>
     <!-- features -->
     <div v-if="config.features" class="container">
-      <img
-        v-if="image"
-        :src="image"
-        class="w-48 mx-auto"
-        alt="Highlight Image"
-      />
-      <h2
-        v-if="config.header"
-        class="text-2xl md:text-3xl font-bold text-center"
-      >
+      <img v-if="image" :src="image" class="w-48 mx-auto" alt="Highlight Image" />
+      <h2 v-if="config.header" class="text-2xl md:text-3xl font-bold text-center">
         {{ config.header }}
       </h2>
       <p
@@ -115,17 +101,10 @@ const bgStyle = computed(() => {
       >
         {{ config.description }}
       </p>
-      <div
-        v-if="config.features"
-        class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-6"
-      >
-        <div
-          v-for="(feature, index) in config.features"
-          :key="index"
-          class="col"
-        >
+      <div v-if="config.features" class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-6">
+        <div v-for="(feature, index) in config.features" :key="index" class="col">
           <div
-            class="p-3 bg-white/20 rounded-lg shadow-sm backdrop-blur-sm h-full"
+            class="p-3 bg-gray-200/30 dark:bg-gray-800/30 rounded-lg shadow-sm backdrop-blur-md h-full"
           >
             <h3 class="text-lg md:text-xl font-semibold">
               <a

@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRouteLocale } from "vuepress/client";
-import { useThemeOptions } from "../composables";
-import Layout from "./Layout.vue";
-// import Navbar from '../components/Navbar.vue'
-// import Footer from '../components/Footer.vue'
+import { computed } from 'vue'
+import { useRouteLocale } from 'vuepress/client'
+import Layout from './Layout.vue'
 
-const routeLocale = useRouteLocale();
-const themeOptions = useThemeOptions();
-const homeLink = computed(() => routeLocale.value);
+const routeLocale = useRouteLocale()
+const homeLink = computed(() => routeLocale.value)
 </script>
 
 <template>
@@ -20,9 +16,7 @@ const homeLink = computed(() => routeLocale.value);
         <p class="mb-8 text-gray-600 dark:text-gray-400">
           The page you're looking for doesn't exist or has been moved.
         </p>
-        <RouterLink :to="homeLink" class="btn btn-primary">
-          Return to Home
-        </RouterLink>
+        <RouterLink :to="homeLink" class="btn btn-primary"> Return to Home </RouterLink>
       </div>
     </template>
   </Layout>

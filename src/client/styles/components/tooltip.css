@@ -1,0 +1,91 @@
+@layer components {
+  [data-tooltip] {
+    @apply relative inline-block cursor-pointer;
+    &::before,
+    &::after {
+      @apply absolute z-10 invisible opacity-0 translate-y-full transition-all;
+    }
+    /* Tooltip box */
+    &::after {
+      content: attr(data-tooltip);
+      @apply start-1/2 -translate-x-1/2 bottom-full;
+      @apply text-white bg-primary/70 backdrop-blur-md;
+      @apply text-xs py-1 px-2 rounded whitespace-nowrap mb-2;
+      @apply transform;
+      /* left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: white;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      margin-bottom: 8px; */
+    }
+
+    /* Tooltip arrow */
+    &::before {
+      content: '';
+      @apply left-1/2 bottom-full transform -translate-x-1/2
+         border-[5px] border-transparent border-t-primary/70
+         -mb-0.5;
+      /* @apply start-1/2 -translate-x-1/2 bottom-full;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #1f2937;
+      margin-bottom: -2px; */
+    }
+
+    &:hover {
+      &::before,
+      &::after {
+        @apply visible opacity-100 translate-y-0;
+      }
+    }
+  }
+
+  /* [data-tooltip]::before,
+  [data-tooltip]::after {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 0.2s ease-in-out,
+      visibility 0.2s ease-in-out;
+    z-index: 10;
+  }
+
+  
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    background: #1f2937;
+    color: white;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-bottom: 8px;
+  }
+
+  [data-tooltip]::before {
+    content: '';
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1f2937;
+    margin-bottom: -2px;
+  }
+
+  [data-tooltip]:hover::before,
+  [data-tooltip]:hover::after {
+    visibility: visible;
+    opacity: 1;
+  } */
+}

@@ -1,25 +1,16 @@
-<script setup>
-import { useThemeOptions } from "../composables";
+<script setup lang="ts">
 import { computed, onMounted } from "vue";
-import { usePageFrontmatter, withBase } from "vuepress/client";
 import { useDark } from "@vueuse/core";
-const frontmatter = usePageFrontmatter();
+import { useData } from "../composables/useData";
+import type { ThemeHomePageFrontmatter } from "../../shared/page";
+const { frontmatter, siteLocale } = useData<ThemeHomePageFrontmatter>();
 const isDark = useDark();
-const themeOptions = useThemeOptions();
 onMounted(() => {
-  console.log(frontmatter.value);
+  console.log("frontmatter", frontmatter);
 });
 </script>
 <template>
   <div class="vp-theme-container">
-    <main class="vp-page vp-home" vp-page>
-      <Navbar :transparent-top="true" />
-      <Hero />
-      <Highlights />
-      <slot name="page-top" />
-      <Content v-if="$slots.default" class="vp-content" vp-content />
-      <slot name="page-bottom" />
-    </main>
-    <Footer />
+    <pre>{{ frontmatter }}</pre>
   </div>
 </template>

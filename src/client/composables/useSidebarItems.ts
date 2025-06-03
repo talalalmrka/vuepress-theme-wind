@@ -1,16 +1,41 @@
-import { computed } from 'vue'
+import { computed, ComputedRef } from 'vue'
+import { isLinkRelative, isString } from '@vuepress/helper/client'
+import { resolveAutoLink } from '../utils/resolveAutoLink'
+import { resolvePrefix } from '../utils/resolvePrefix'
 import { useRoute } from 'vuepress/client'
-import { useThemeOptions } from './useThemeOptions'
-import type { SidebarConfig } from '../../shared'
-
-export const useSidebarItems = () => {
+import { useData } from './useData'
+import { SidebarItemOptions } from '@theme/shared'
+import { SidebarItem } from '../typings'
+const resolveSidebarItem = (item: SidebarItemOptions, prefix = ''): SidebarItem => {
+  if (isString(item)) {
+    return resolveAutoLink(resolvePrefix(prefix, item))
+  }
+  if ('children' in item) {
+    const resolvedItem = {
+      ...resolveAutoLink(resolvePrefix(prefix, item.prefix)),
+      ...item
+    }
+    return {
+      ...resolvedItem,
+      // children: [],
+      children: item.children.map(child =>
+        resolveSidebarItem(child, resolvePrefix(prefix, item.prefix))
+      )
+    }
+  }
+  return {
+    ...item,
+    link: isLinkRelative(item.link)
+      ? resolveAutoLink(resolvePrefix(prefix, item.link)).link
+      : item.link
+  }
+}
+export const useSidebarItems = (): ComputedRef<SidebarItem[]> => {
+  //export const useSidebarItems = (): SidebarItem[] => {
   const route = useRoute()
-  const themeOptions = useThemeOptions()
-
-  return computed(() => {
-    const sidebarConfig = themeOptions.sidebar || {}
-    
-    // Find matching sidebar config for current route
+  const { themeLocale } = useData()
+  const currentItems = computed(() => {
+    const sidebarConfig = themeLocale.value.sidebar || {}
     const matchingConfig = Object.entries(sidebarConfig).find(([key]) => {
       if (key === route.path) return true
       if (key.endsWith('/') && route.path.startsWith(key)) return true
@@ -19,16 +44,6 @@ export const useSidebarItems = () => {
 
     return matchingConfig ? matchingConfig[1] : []
   })
+  //return [];
+  return computed(() => (currentItems.value || []).map(item => resolveSidebarItem(item)))
 }
-
-interface Header {
-  level: number
-}
-
-export const useSidebarDepth = () => {
-  const route = useRoute()
-  return computed(() => {
-    const headers = (route.meta.headers || []) as Header[]
-    return headers.length > 0 ? Math.max(...headers.map(h => h.level)) : 1
-  })
-} 

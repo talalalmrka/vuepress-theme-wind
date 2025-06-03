@@ -1,49 +1,42 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { useThemeOptions } from "../composables";
-defineProps<{
-  sidebarOpen?: boolean;
-  transparentTop?: boolean;
-}>();
-defineEmits<{ toggleSidebar: [] }>();
-const themeOptions = useThemeOptions();
-const transparent = ref(false);
-const navbarHeight = computed(() => {
-  const nav = document.querySelector(".vp-navbar") as HTMLElement | null;
-  return nav ? nav.offsetHeight : 0;
-});
-function toggleTransparentTop(scrollY: number) {
-  if (scrollY > navbarHeight.value) {
-    transparent.value = false;
-  } else {
-    transparent.value = true;
+import { resolveComponent, useTemplateRef, onMounted } from 'vue'
+import { useEventListener } from '@vueuse/core'
+import { hasGlobalComponent } from '@vuepress/helper/client'
+
+import { useData, useNavbarHeight } from '../composables'
+const props = defineProps<{
+  sidebarOpen?: boolean
+  transparentTop?: boolean
+}>()
+defineEmits<{ toggleSidebar: [] }>()
+
+const { themeLocale } = useData()
+const navbarHeight = useNavbarHeight()
+const navbar = useTemplateRef<HTMLElement>('navbar')
+
+const SearchBox = hasGlobalComponent('SearchBox') ? resolveComponent('SearchBox') : (): null => null
+
+const transparentNavbar = (): void => {
+  if (props.transparentTop && navbar.value) {
+    if (window.scrollY < navbarHeight.value) {
+      navbar.value.classList.add('transparent')
+    } else {
+      navbar.value.classList.remove('transparent')
+    }
   }
 }
+useEventListener('scroll', transparentNavbar)
 onMounted(() => {
-  window.addEventListener("scroll", () => {
-    toggleTransparentTop(window.scrollY);
-  });
-  toggleTransparentTop(window.scrollY);
-});
+  transparentNavbar()
+})
 </script>
-
 <template>
-  <header
-    class="vp-navbar"
-    v-bind="$attrs"
-    :class="{ transparent: transparent && transparentTop }"
-    vp-navbar
-  >
-    <sidebar-toggle
-      @click="$emit('toggleSidebar')"
-      :sidebarOpen="sidebarOpen"
-    />
+  <header class="vp-navbar" v-bind="$attrs" ref="navbar" vp-navbar>
+    <sidebar-toggle @click="$emit('toggleSidebar')" :sidebarOpen="sidebarOpen" />
     <navbar-brand />
-
-    <navbar-links />
-
+    <NavbarLinks />
     <div class="nav">
-      <div v-if="themeOptions.pluginOptions?.search" class="vp-navbar-link">
+      <div v-if="SearchBox" class="vp-navbar-link">
         <SearchBox />
       </div>
       <navbar-repo />

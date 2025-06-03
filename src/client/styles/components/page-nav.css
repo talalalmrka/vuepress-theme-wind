@@ -1,0 +1,40 @@
+@layer components {
+  .vp-page-nav {
+    @apply flex flex-wrap mx-auto mt-5 pt-2 pb-0 min-h-8 border-t border-solid;
+    @media print {
+      @apply hidden;
+    }
+
+    .auto-link {
+      @apply grow m-1 py-1 px-2 rounded inline-block;
+      @apply border no-underline;
+      @apply hover:bg-gray-100 dark:hover:bg-gray-800;
+      .link {
+        @apply text-primary no-underline;
+      }
+      .external-link {
+        @apply flex-space-1 inline-flex;
+      }
+
+      &.external-link::after {
+        display: none;
+      }
+
+      &:not(.external-link) .external-link::after {
+        display: none;
+      }
+
+      .hint {
+        @apply text-sm leading-7 text-muted;
+      }
+    }
+
+    .prev {
+      @apply text-start;
+    }
+
+    .next {
+      @apply text-end;
+    }
+  }
+}

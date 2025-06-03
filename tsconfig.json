@@ -13,12 +13,14 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "baseUrl": ".",
     "paths": {
+      "@theme": ["src"],
       "@theme/*": ["src/*"]
     },
     "types": ["vuepress/client", "vuepress/client-types", "vite/client"],
     "outDir": "lib",
     "declaration": true,
-    "declarationDir": "lib/types"
+    "declarationDir": "lib/types",
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "env.d.ts",

@@ -22,12 +22,7 @@ onUnmounted(() => {
 
 <template>
   <Transition name="fade">
-    <button
-      v-show="show"
-      class="back-to-top"
-      @click="scrollToTop"
-      title="Back to top"
-    >
+    <button v-show="show" class="back-to-top" @click="scrollToTop" title="Back to top">
       <i class="bi-arrow-up"></i>
     </button>
   </Transition>
@@ -47,4 +42,4 @@ onUnmounted(() => {
 .fade-leave-to {
   @apply opacity-0;
 }
-</style> 
+</style>

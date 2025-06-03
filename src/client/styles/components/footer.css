@@ -1,0 +1,8 @@
+@layer components {
+  .vp-footer {
+    @apply bg-gray-100 dark:bg-gray-800;
+    &.has-sidebar {
+      @apply md:ps-sidebar;
+    }
+  }
+}

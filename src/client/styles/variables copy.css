@@ -1,0 +1,72 @@
+:root,
+[data-theme='light'] {
+  /* text colors */
+  --vp-c-text: var(--color-gray-800);
+  --vp-c-text-mute: var(--color-gray-600);
+  --vp-c-text-subtle: var(--color-gray-400);
+
+  /* background colors */
+  --vp-c-bg: var(--color-body);
+  --vp-c-bg-alt: var(--color-gray-100);
+  --vp-c-bg-elv: var(--color-white);
+
+  /* shadow colors */
+  --vp-c-shadow: var(--color-gray-200);
+
+  --vp-c-accent: var(--color-primary-600);
+  --vp-c-accent-bg: var(--color-primary-500);
+  --vp-c-accent-hover: var(--color-primary-400);
+  --vp-c-accent-text: var(--color-white);
+  --vp-c-accent-soft: rgb(var(--color-primary-500) / 14%);
+
+  /* border colors */
+  --vp-c-border: var(--color-gray-200);
+  --vp-c-border-hard: var(--color-gray-700);
+  --vp-c-divider: var(--color-gray-200);
+
+  /* control colors */
+  --vp-c-control: var(--color-gray-200);
+  --vp-c-control-bg: var(--color-gray-100);
+  --vp-c-control-hover: var(--color-gray-200);
+  --vp-c-control-text: var(--color-gray-800);
+  --vp-c-control-soft: var(--color-gray-100);
+
+  /* transition colors */
+  --vp-t-color: 0.3s ease;
+  --vp-t-transform: 0.3s ease;
+
+  /* medium-zoom */
+  --medium-zoom-c-bg: rgba(255, 255, 255, 0.5);
+}
+[data-theme='dark'] {
+  /* text colors */
+  --vp-c-text: var(--color-gray-200);
+  --vp-c-text-mute: var(--color-gray-400);
+  --vp-c-text-subtle: var(--color-gray-600);
+  /* background colors */
+  --vp-c-bg: var(--color-body-dark);
+  --vp-c-bg-alt: var(--color-gray-700);
+  --vp-c-bg-elv: var(--color-black);
+  /* shadow colors */
+  --vp-c-shadow: var(--color-gray-700);
+
+  --vp-c-accent: var(--color-primary-600);
+  --vp-c-accent-bg: var(--color-primary-500);
+  --vp-c-accent-hover: var(--color-primary-400);
+  --vp-c-accent-text: var(--color-white);
+  --vp-c-accent-soft: rgb(var(--color-primary-500) / 14%);
+
+  /* border colors */
+  --vp-c-border: var(--color-gray-700);
+  --vp-c-border-dark: var(--color-gray-200);
+
+  /* control colors */
+  --vp-c-control: var(--color-gray-700);
+  --vp-c-control-bg: var(--color-gray-800);
+  --vp-c-control-hover: var(--color-gray-700);
+  --vp-c-control-text: var(--color-gray-200);
+  --vp-c-control-soft: var(--color-gray-800);
+
+  /* medium-zoom */
+  --medium-zoom-c-bg: rgba(0, 0, 0, 0.5);
+}
