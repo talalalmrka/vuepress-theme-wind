@@ -3,7 +3,7 @@ name: Deploy Docs
 on:
   push:
     branches:
-      - main # Change to your default branch (master/main)
+      - main
   workflow_dispatch:
 
 jobs:
@@ -14,16 +14,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Required for last-updated plugin
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm' # Change to 'npm' or 'yarn' if needed
+          cache: 'pnpm'
+
+      # Add this step to install pnpm globally
+      - name: Install pnpm
+        run: npm install -g pnpm@8
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile # Change to npm/yarn equivalent
+        run: pnpm install --frozen-lockfile
 
       - name: Build Documentation
         run: pnpm docs:build
@@ -31,6 +35,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          # Deploy Docs
           branch: gh-pages
           folder: docs/.vuepress/dist
