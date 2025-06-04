@@ -9,9 +9,6 @@ import { setupHeaders } from './composables/useHeaders'
 import { setupTocItems } from '@theme/client/composables/useTocItems'
 import { useActiveHeaderLinks } from '@theme/client/composables/useActiveHeaderLinks'
 import './styles/index.css'
-//import { setupSidebarItems } from "./composables/useSidebarItemsNew";
-
-//declare const __THEME_OPTIONS__: any;
 
 export default defineClientConfig({
   async enhance({ app }) {

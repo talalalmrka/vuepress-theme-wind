@@ -43,13 +43,13 @@ const featureImage = computed(() => {
 
 <template>
     <div class="vp-feature-wrapper">
-        <div v-if="backgroundImage" class="vp-feature-bg" :class="{
+        <div v-if="backgroundImage" class="vp-feature-bg" :class="[props.class, {
             'bg-cover': props.bgStyle?.cover || true,
             'bg-repeat': props.bgStyle?.repeat || false,
             'bg-no-repeat': !props.bgStyle?.repeat || false,
             'bg-center': props.bgStyle?.center || true,
             'bg-fixed': props.bgStyle?.fixed || true
-        }" :style="[
+        }]" :style="[
             { 'background-image': `url(${backgroundImage})` },
         ]" />
 

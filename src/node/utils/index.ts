@@ -1,5 +1,3 @@
-//export * from './assignDefaultLocaleOptions'
+export * from './assignPlugins'
 export * from './resolveMarkdownHintLocales'
 export * from './resolveThemeOptions'
-//export * from './assignDefaultOptions'
-export * from './assignPlugins'

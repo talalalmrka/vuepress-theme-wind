@@ -29,34 +29,46 @@ import { docsearchPlugin, DocSearchPluginOptions } from '@vuepress/plugin-docsea
 import { meilisearchPlugin, MeiliSearchPluginOptions } from '@vuepress/plugin-meilisearch'
 import { searchPlugin, SearchPluginOptions } from '@vuepress/plugin-search'
 import { slimsearchPlugin, SlimSearchPluginOptions } from '@vuepress/plugin-slimsearch'
-import {
+/* import {
   activeHeaderLinksPlugin,
   ActiveHeaderLinksPluginOptions
-} from '@vuepress/plugin-active-header-links'
+} from '@vuepress/plugin-active-header-links' */
 import { gitPlugin, GitPluginOptions } from '@vuepress/plugin-git'
 import { catalogPlugin, CatalogPluginOptions } from '@vuepress/plugin-catalog'
 import { mediumZoomPlugin, MediumZoomPluginOptions } from '@vuepress/plugin-medium-zoom'
 import { PluginConfig } from 'vuepress'
 // import { useNavbarHeight } from '../../client/composables/useNavbarHeight'
 import { readingTimePlugin, ReadingTimePluginOptions } from '@vuepress/plugin-reading-time'
+import { seoPlugin, SeoPluginOptions } from '@vuepress/plugin-seo'
+import { sitemapPlugin, SitemapPluginOptions } from '@vuepress/plugin-sitemap'
 
+function getSEOPluginOptions(
+  themeOptions: ThemeOptions,
+  seoOption: Omit<SeoPluginOptions, 'hostname' | 'author'> | boolean
+): SeoPluginOptions {
+  const baseOptions = typeof seoOption === 'boolean' ? {} : seoOption
+  return {
+    ...baseOptions,
+    hostname: themeOptions.hostname,
+    author: themeOptions.author
+  }
+}
+
+function getSitemapPluginOptions(
+  themeOptions: ThemeOptions,
+  sitemapOption: Omit<SitemapPluginOptions, 'hostname'> | boolean
+): SitemapPluginOptions {
+  const baseOptions = typeof sitemapOption === 'boolean' ? {} : sitemapOption
+  return {
+    ...baseOptions,
+    hostname: themeOptions.hostname
+  }
+}
 export const assignPlugins = (options: ThemeOptions): PluginConfig => {
   return [
     ...(options.plugins ?? []),
 
     // ==================== Features ====================
-
-    // Active Header Links Plugin
-    // Automatically updates the active state of navigation links based on current scroll position
-    /* ...(options.pluginOptions?.activeHeaderLinks
-      ? [
-          activeHeaderLinksPlugin(
-            (options.pluginOptions.activeHeaderLinks as ActiveHeaderLinksPluginOptions) ?? {
-              offset: useNavbarHeight().value
-            }
-          )
-        ]
-      : []), */
 
     // Append Date Plugin
     // Automatically appends creation and update dates to pages
@@ -233,6 +245,18 @@ export const assignPlugins = (options: ThemeOptions): PluginConfig => {
     typeof options.pluginOptions.search === 'object' &&
     options.pluginOptions.search.provider === 'local'
       ? [searchPlugin(options.pluginOptions.search as SearchPluginOptions)]
+      : []),
+
+    // ==================== SEO & Sitemap ====================
+
+    // SEO Plugin
+    ...(options.pluginOptions?.seo
+      ? [seoPlugin(getSEOPluginOptions(options, options.pluginOptions.seo))]
+      : []),
+
+    // Sitemap Plugin
+    ...(options.pluginOptions?.sitemap
+      ? [sitemapPlugin(getSitemapPluginOptions(options, options.pluginOptions.sitemap))]
       : [])
   ]
 }

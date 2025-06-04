@@ -1,6 +1,7 @@
 @layer components {
   .vp-highlight-wrapper {
-    @apply relative flex items-center justify-center;
+    @apply relative flex items-center;
+    @apply justify-center;
 
     &:nth-child(odd) .vp-highlight {
       @apply flex-row-reverse;
@@ -19,22 +20,6 @@
 
   .vp-highlight-bg {
     @apply absolute inset-0 z-0 bg-fixed bg-center bg-cover;
-
-    &.light {
-      @apply inline-block;
-    }
-
-    &.dark {
-      @apply hidden;
-    }
-
-    [data-theme='dark'] &.light {
-      @apply hidden;
-    }
-
-    [data-theme='dark'] &.dark {
-      @apply inline-block;
-    }
   }
 
   .vp-highlight-image {
@@ -46,22 +31,6 @@
 
     @media (max-width: theme('screens.md')) {
       @apply w-32 mx-auto my-0;
-    }
-
-    &.light {
-      @apply inline-block;
-    }
-
-    &.dark {
-      @apply hidden;
-    }
-
-    [data-theme='dark'] &.light {
-      @apply hidden;
-    }
-
-    [data-theme='dark'] &.dark {
-      @apply inline-block;
     }
   }
 
@@ -82,7 +51,7 @@
   }
 
   .vp-highlight-header {
-    @apply mb-6 border-b-0 font-[var(--vp-font)] text-4xl;
+    @apply mb-6 border-b-0 text-4xl;
 
     @media (max-width: theme('screens.sm')) {
       @apply text-[2.5rem];
@@ -102,31 +71,25 @@
   }
 
   .vp-highlights {
-    margin-inline-start: -1.25em;
-    @apply pl-0;
+    @apply p-0 m-0 list-none;
+    /* margin-inline-start: -1.25em;
+    @apply pl-0; */
 
-    :not(pre) > code {
+    /* :not(pre) > code {
       @apply text-[var(--vp-c-text)];
-    }
+    } */
   }
 
   .vp-highlight-item-wrapper {
-    @apply relative py-2 px-2 pr-7 rounded-lg list-none;
+    @apply relative py-2 px-2 ps-0 rounded-lg list-none;
 
     &.link {
-      @apply cursor-pointer text-muted hover:text-inherit no-underline;
+      @apply cursor-pointer text-inherit no-underline;
 
       &:hover {
-        @apply bg-[var(--vp-c-bg-alt)];
-
-        .vp-highlight-bg + .vp-highlight & {
-          @apply bg-transparent;
-          backdrop-filter: blur(12px);
-        }
-
         &::before {
           content: '➜';
-          @apply block float-right;
+          @apply block float-end;
         }
       }
 
@@ -139,7 +102,7 @@
   .vp-highlight-item {
     @apply list-item text-current list-inside;
     &.link {
-      @apply text-muted hover:text-inherit no-underline;
+      @apply no-underline;
     }
     @media print {
       @apply no-underline;

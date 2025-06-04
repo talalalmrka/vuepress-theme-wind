@@ -17,10 +17,11 @@ import { MarkdownTabPluginOptions } from '@vuepress/plugin-markdown-tab'
 import { NoticePluginOptions } from '@vuepress/plugin-notice'
 import { HighlighterOptions } from './highlight'
 import { SearchOptions } from './search'
+import { SeoPluginOptions } from '@vuepress/plugin-seo'
+import { SitemapPluginOptions } from '@vuepress/plugin-sitemap'
 import { MediumZoomPluginOptions } from '@vuepress/plugin-medium-zoom'
 import { TocOptions } from './toc'
 import { ReadingTimePluginOptions } from '@vuepress/plugin-reading-time'
-//export interface ActiveHeaderLinksPluginOptions
 export interface ThemePluginOptions {
   activeHeaderLinks?: ActiveHeaderLinksPluginOptions | boolean
   appendDate?: AppendDatePluginOptions | boolean
@@ -43,6 +44,8 @@ export interface ThemePluginOptions {
   readingTime?: ReadingTimePluginOptions | boolean
   stylize?: MarkdownStylizePluginOptions | boolean
   search?: SearchOptions | boolean
+  seo?: Omit<SeoPluginOptions, 'hostname' | 'author'> | boolean
+  sitemap?: Omit<SitemapPluginOptions, 'hostname'> | boolean
   tab?: MarkdownTabPluginOptions | boolean
   toc?: TocOptions | boolean
 }

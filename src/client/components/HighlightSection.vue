@@ -4,35 +4,11 @@ import { RouteLink, withBase } from "vuepress/client";
 import { resolveComponent, computed } from "vue";
 import { useDark } from "@vueuse/core";
 import { HomeHighlightOptions } from "../../shared/page";
-
-/* interface HighlightItem {
-    icon?: string;
-    title: string;
-    details?: string;
-    link?: string;
-} */
-
-/* interface Props {
-    bgImage?: string;
-    bgImageDark?: string;
-    bgImageStyle?: string | Record<string, string>;
-    color?: string;
-    description?: string;
-    image?: string;
-    imageDark?: string;
-    header?: string;
-    highlights?: HighlightItem[];
-    type?: "order" | "no-order" | "un-order";
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    type: "un-order",
-    highlights: () => [],
-}); */
 const props = withDefaults(defineProps<HomeHighlightOptions>(), {
     type: "un-order",
     highlights: () => [],
 })
+
 const isDark = useDark()
 // Compute tag names based on list type
 const listTag = computed(() => {
@@ -49,11 +25,7 @@ const listTag = computed(() => {
 const itemTag = computed(() => (props.type === "no-order" ? "div" : "li"));
 const titleTag = computed(() => (props.type === "no-order" ? "dt" : "h3"));
 const detailsTag = computed(() => (props.type === "no-order" ? "dd" : "div"));
-/* const isDark = useDark()
-const image = computed(() => {
-    const img = isDark.value && props.item.imageDark ? props.item.imageDark : props.item.image
-    return isString(img) ? withBase(img) : null
-})*/
+
 const backgroundImage = computed(() => {
     const img = isDark.value && props.bgImageDark ? props.bgImageDark : props.bgImage
     return isString(img) ? withBase(img) : null
@@ -65,7 +37,7 @@ const image = computed(() => {
 </script>
 
 <template>
-    <div class="vp-highlight-wrapper" :style="color ? { color } : {}">
+    <div class="vp-highlight-wrapper" :class="props.class">
         <div v-if="backgroundImage" class="vp-highlight-bg" :class="{
             'bg-cover': props.bgStyle?.cover || true,
             'bg-repeat': props.bgStyle?.repeat || false,

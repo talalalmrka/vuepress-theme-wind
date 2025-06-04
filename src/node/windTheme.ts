@@ -11,7 +11,6 @@ const componentsDir = path.resolve(__dirname, '../client/components')
 const pageInfoComponentsDir = `${componentsDir}/pageinfo`
 
 export const windTheme = (options: ThemeOptions): Theme => {
-  //const themeOptions = resolveThemeOptions(options)
   resolveThemeOptions(options)
   const pageInfoComponentsMap = Object.fromEntries(
     fs
@@ -74,10 +73,8 @@ export const windTheme = (options: ThemeOptions): Theme => {
           ...pageInfoComponentsMap
         }
       }),
-      // ...assignPlugins(themeOptions),
       ...assignPlugins(options),
       themeDataPlugin({
-        // themeData: themeOptions
         themeData: options
       })
     ]
