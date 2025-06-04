@@ -11,6 +11,8 @@
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "format": "prettier --write .",
     "clean": "vuepress-vite dev docs --clean-cache",
     "clean-dev": "vuepress dev docs --clean-cache",
