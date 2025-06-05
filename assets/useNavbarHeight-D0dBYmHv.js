@@ -1,0 +1,1 @@
+import{l as n}from"./app-B1rNWXFK.js";const o=()=>n(()=>{if(typeof window>"u")return console.log("window undefined cannot set navbar height"),0;const e=document.querySelector("[vp-navbar]");return e?e.offsetHeight:(console.warn("Navbar element not found with selector[vp-navbar]"),0)});export{o as u};
