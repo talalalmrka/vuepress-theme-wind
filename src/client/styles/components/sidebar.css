@@ -1,10 +1,11 @@
 @layer components {
   .vp-sidebar {
     @apply fixed inset-y-0 start-0 overflow-y-auto;
+    @apply top-navbar;
     @apply z-20;
     @apply w-sidebar;
     @apply px-4 pt-4 pb-8;
-    @apply bg-body/90 dark:bg-body-dark/90;
+    @apply bg-body dark:bg-body-dark;
     @apply backdrop-blur-md;
     @apply backdrop-saturate-150;
     @apply shadow-xs;
@@ -13,8 +14,8 @@
     @apply backdrop-saturate-150 md:backdrop-saturate-0;
     @apply backdrop-opacity-50 md:backdrop-opacity-100;
     @apply shadow-sm md:shadow-none;
-    @apply transform transition-transform duration-200;
-    @apply -translate-x-full md:translate-x-0;
+    @apply transition-transform;
+    @apply -translate-x-full lg:translate-x-0;
     @apply space-y-2;
     @variant md {
       @apply bg-body dark:bg-body-dark;
@@ -56,6 +57,6 @@
   .vp-sidebar-overlay {
     @apply fixed inset-0 z-10;
     @apply bg-black/20;
-    @apply md:!hidden;
+    @apply lg:!hidden;
   }
 }

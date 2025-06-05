@@ -1,4 +1,5 @@
 ---
+date: 2025-06-05
 title: Installation
 icon: bi-gear-wide-connected
 ---

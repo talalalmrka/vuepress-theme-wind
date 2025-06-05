@@ -1,4 +1,5 @@
 ---
+date: 2025-06-05
 title: Dark mode
 icon: bi-moon-stars
 next: /form/checkbox

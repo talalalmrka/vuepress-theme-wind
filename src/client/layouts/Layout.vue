@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useData, useHasSidebar, useSidebarItems } from '@theme/client/composables'
+import { useData, useHasSidebar } from '@theme/client/composables'
+import { useScrollPromise } from '@theme/client/composables/useScrollPromise';
 import type { Slot } from '@vuepress/helper/client'
 import { computed, ref } from 'vue'
 import { onContentUpdated } from 'vuepress/client'
@@ -20,61 +21,41 @@ defineSlots<{
 
 const { frontmatter, page, themeLocale } = useData()
 
-// navbar
-const shouldShowNavbar = computed(
-  () => frontmatter.value.navbar ?? themeLocale.value.navbar ?? true,
-)
-
 // sidebar
 const sidebarOpen = ref(false)
 function toggleSidebar() {
   sidebarOpen.value = !sidebarOpen.value
 }
-const sidebarItems = useSidebarItems()
 const hasSidebar = useHasSidebar()
-// external-link-icon
-const enableExternalLinkIcon = computed(
-  () =>
-    frontmatter.value.externalLinkIcon ??
-    themeLocale.value.externalLinkIcon ??
-    true,
-)
 
 // classes
 const containerClass = computed(() => [
   {
-    //'no-navbar': !shouldShowNavbar.value,
-    //'no-sidebar': !sidebarItems.value.length,
     'has-sidebar': hasSidebar,
-    //'sidebar-open': isSidebarOpen.value,
-    //'external-link-icon': enableExternalLinkIcon.value,
   },
   frontmatter.value.pageClass,
 ])
+const scrollPromise = useScrollPromise()
+const onBeforeEnter = scrollPromise.resolve
+const onBeforeLeave = scrollPromise.pending
+onContentUpdated(() => {
+  sidebarOpen.value = false
+})
 
-// close sidebar when content changes
-/* onContentUpdated(() => {
-  sidebarOpen.value = false;
-}) */
 </script>
 
 <template>
   <div class="vp-theme-container" :class="containerClass" vp-container>
     <slot name="navbar">
-      <Navbar @toggleSidebar="toggleSidebar" :sidebarOpen="sidebarOpen" :transparent-top="frontmatter.home"
+      <Navbar @toggle-sidebar="toggleSidebar" :sidebarOpen="sidebarOpen" :transparent-top="frontmatter.home"
         :key="`navbar-${page.path}`" />
     </slot>
-
-    <div v-if="!frontmatter.home && hasSidebar" v-show="sidebarOpen" class="vp-sidebar-overlay"
-      @click="toggleSidebar" />
-
     <slot name="sidebar">
-      <Sidebar v-if="!frontmatter.home && hasSidebar" :open="sidebarOpen" :key="`sidebar-${page.path}`"
-        @toggle-sidebar="toggleSidebar" />
+      <Sidebar :sidebar-open="sidebarOpen" @toggle-sidebar="toggleSidebar" />
     </slot>
 
     <slot name="page">
-      <SlideYTransition>
+      <SlideYTransition @before-enter="onBeforeEnter" @before-leave="onBeforeLeave">
         <FgHome v-if="frontmatter.home" />
         <FgPage v-else :key="page.path">
           <template #top>

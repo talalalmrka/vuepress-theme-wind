@@ -1,8 +1,7 @@
 @layer components {
   .vp-navbar {
-    @apply relative flex items-center justify-between px-4 sm:px-6 lg:px-8;
-    /* @apply fixed inset-x-0 top-0 z-30; */
-    @apply sticky top-0 z-30;
+    @apply fixed inset-x-0 top-0 z-30;
+    @apply flex items-center justify-between px-4 sm:px-6 lg:px-8;
     @apply h-navbar;
     @apply bg-body/80 dark:bg-body-dark/80;
     @apply backdrop-blur-md;

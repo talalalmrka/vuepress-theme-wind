@@ -1,4 +1,5 @@
 ---
+date: 2025-06-05
 home: true
 title: Home
 icon: bi-house

@@ -33,7 +33,7 @@ useEventListener('keydown', (event): void => {
   <nav v-if="prevLink || nextLink" class="vp-page-nav" :aria-label="navbarLabel">
     <AutoLink v-if="prevLink" class="prev" :config="prevLink">
       <div class="hint">
-        <fg-icon :icon="prevIcon" class="me-1" />
+        <fg-icon icon="bi-chevron-left" class="me-1" />
         <span v-if="prev" v-html="prev" />
       </div>
       <div class="link">
@@ -46,7 +46,7 @@ useEventListener('keydown', (event): void => {
     <AutoLink v-if="nextLink" class="next" :config="nextLink">
       <div class="hint">
         <span v-if="next" v-html="next" />
-        <fg-icon :icon="nextIcon" class="ms-1" />
+        <fg-icon icon="bi-chevron-right" class="ms-1" />
       </div>
       <div class="link">
         <span class="external-link">

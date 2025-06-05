@@ -1,3 +1,7 @@
+---
+date: 2025-06-05
+---
+
 # Table of Contents
 
 The theme provides a powerful Table of Contents (TOC) feature that can be customized through theme options and used in your components.

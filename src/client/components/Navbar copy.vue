@@ -33,21 +33,15 @@ onMounted(() => {
 </script>
 <template>
   <header class="vp-navbar" :class="navbarClass" v-bind="$attrs" ref="navbar" vp-navbar>
-    <nav class="vp-navbar-start nav">
-      <SidebarToggle :sidebar-open="sidebarOpen" @toggle-sidebar="$emit('toggleSidebar')" />
-      <template v-if="navbarLayout?.start?.length">
-        <component v-for="name in navbarLayout.start" :is="name" :key="name" />
-      </template>
-    </nav>
-    <nav class="vp-navbar-center nav">
-      <template v-if="navbarLayout?.center?.length">
-        <component v-for="name in navbarLayout.center" :is="name" :key="name" />
-      </template>
-    </nav>
-    <nav class="vp-navbar-end nav">
-      <template v-if="navbarLayout?.end?.length">
-        <component v-for="name in navbarLayout.end" :is="name" :key="name" />
-      </template>
-    </nav>
+    <SidebarToggle @click="$emit('toggleSidebar')" :sidebarOpen="sidebarOpen" />
+    <navbar-brand />
+    <NavbarLinks />
+    <div class="nav">
+      <div v-if="SearchBox" class="vp-navbar-link">
+        <SearchBox />
+      </div>
+      <navbar-repo />
+      <dark-mode-toggle />
+    </div>
   </header>
 </template>

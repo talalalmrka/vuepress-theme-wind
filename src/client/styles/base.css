@@ -134,14 +134,14 @@
   }
   .vp-page {
     @apply px-4 py-4 max-w-7xl mx-auto;
-    /* padding-top: calc(var(--spacing-navbar) + --spacing(4)); */
+    padding-top: calc(var(--spacing-navbar) + --spacing(4));
     &.has-sidebar {
-      @variant md {
+      @variant lg {
         padding-inline-start: calc(var(--spacing-sidebar) + --spacing(4));
       }
     }
     &.has-toc {
-      @variant md {
+      @variant lg {
         padding-inline-end: calc(var(--spacing-toc) + --spacing(4));
       }
     }

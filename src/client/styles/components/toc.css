@@ -5,13 +5,22 @@
 
   .vp-toc {
     @apply absolute;
-    @apply start-2 end-2 md:start-[calc(100%+--spacing(4))] md:end-auto;
-    @apply md:w-toc;
+    @apply start-0 end-0 lg:start-[calc(100%+--spacing(4))] lg:end-auto;
+    @apply -mt-1 lg:-mt-0;
+    @apply lg:w-toc;
     @apply h-auto;
-    @apply max-h-toc-height;
-    @apply hidden md:flex md:flex-col;
+    @apply max-h-0 lg:max-h-toc-height;
+    @apply hidden lg:flex lg:flex-col;
+    @apply -translate-y-full lg:translate-y-0;
+    @apply transition-all;
     @apply text-sm;
-    @apply px-3 py-2;
+    @apply lg:px-3 lg:py-2;
+    @apply bg-gray-50 dark:bg-gray-700 lg:bg-inherit;
+    @apply backdrop-blur-md saturate-150 lg:backdrop-blur-none lg:saturate-100;
+    @apply border rounded-lg shadow-sm lg:border-0 lg:rounded-none lg:shadow-none;
+    &.open {
+      @apply flex translate-y-0 max-h-toc-height;
+    }
   }
   .vp-toc-header {
     @apply text-xs font-medium;
@@ -34,7 +43,7 @@
     @apply ps-3;
   }
   .vp-toc-wrapper > .vp-toc-list {
-    @apply border-s-[2px] border-gray-200 dark:border-gray-700;
+    @apply lg:border-s-[2px] border-gray-200 dark:border-gray-700;
   }
   .vp-toc-item {
     @apply relative;
@@ -67,7 +76,7 @@
     }
   }
   .vp-toc-marker {
-    @apply absolute start-0 top-0 z-[2] w-[2px] h-7 bg-primary transition-[top] duration-300;
+    @apply hidden lg:block absolute start-0 top-0 z-[2] w-[2px] h-7 bg-primary transition-[top] duration-300;
   }
   /*.vp-toc-wrapper > .vp-toc-list::before {
     @apply absolute inset-y-0 start-1 -z-10 w-[2px] bg-gray-200 content-[''];

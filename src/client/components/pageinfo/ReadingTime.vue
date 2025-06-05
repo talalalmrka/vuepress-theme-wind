@@ -10,7 +10,7 @@ const { readingTimeIcon, readingTimeLabel } = themeLocale.value
 const readingTimeData = useReadingTimeData()
 const readingTimeLocale = useReadingTimeLocale();
 const { time, words } = readingTimeLocale.value
-const { minutes } = readingTimeData.value
+const minutes = readingTimeData.value?.minutes
 const minsMeta = computed(() => `${minutes}M`)
 const tooltip = computed(() => `${time} ${words}`)
 </script>
@@ -18,7 +18,7 @@ const tooltip = computed(() => `${time} ${words}`)
 <template>
     <span v-if="readingTimeData" class="vp-page-info-item vp-page-info-reading-time" :aria-label="readingTimeLabel"
         :data-tooltip="tooltip">
-        <fg-icon :icon="readingTimeIcon" />
+        <fg-icon icon="bi-hourglass-bottom" />
         <span v-text="time" />
         <meta v-if="minsMeta" property="timeRequired" :content="minsMeta">
     </span>

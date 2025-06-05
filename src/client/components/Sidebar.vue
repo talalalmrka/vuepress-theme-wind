@@ -1,37 +1,27 @@
 <script setup lang="ts">
-import { computed, useTemplateRef, onMounted, ref, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
-import { useData, useSidebarItems, useNavbarHeight, useHasSidebar } from '../composables'
+import type { Slot } from '@vuepress/helper/client'
+import { useData, useSidebarItems, useHasSidebar } from '../composables'
 defineProps<{
-  open: boolean
+  sidebarOpen: boolean
 }>()
 defineEmits<{ toggleSidebar: [] }>()
-const route = useRoute()
-const sidebar = useTemplateRef('sidebar')
 const { themeLocale } = useData()
+const { sidebarClass, sidebarOverlayClass } = themeLocale.value
 const sidebarItems = useSidebarItems()
 const hasSidebar = useHasSidebar()
-const navbarHeight = useNavbarHeight()
-const isActive = (link: string) => {
-  return route.path === link
-}
-onMounted(async () => {
-  await nextTick()
-  if (navbarHeight.value && sidebar.value) {
-    sidebar.value.style.marginTop = `${navbarHeight.value}px`
-  }
-  //console.log("sidebarItems", sidebarItems.value);
-})
+defineSlots<{
+  top?: Slot
+  bottom?: Slot
+}>()
 </script>
 
 <template>
-  <aside v-if="hasSidebar" class="vp-sidebar" :class="{ open: open }" vp-sidebar ref="sidebar">
+  <div v-if="hasSidebar" v-show="sidebarOpen" @click="$emit('toggleSidebar')" class="vp-sidebar-overlay"
+    :class="sidebarOverlayClass">
+  </div>
+  <aside v-if="hasSidebar" class="vp-sidebar" vp-sidebar :class="[sidebarClass, { 'open': sidebarOpen }]">
+    <slot name="top" />
     <sidebar-link v-for="item in sidebarItems" :key="item.text" :item="item" />
+    <slot name="bottom" />
   </aside>
-  <div
-    v-if="hasSidebar"
-    v-show="open"
-    @click="$emit('toggleSidebar')"
-    class="vp-sidebar-overlay"
-  ></div>
 </template>

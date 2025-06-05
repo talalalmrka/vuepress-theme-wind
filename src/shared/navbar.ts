@@ -28,3 +28,26 @@ export type NavbarLinkOptions = AutoLinkOptions | string
 export type NavbarGroupOptions = NavGroup<NavbarLinkOptions | NavGroup<NavbarLinkOptions>>
 // types for navbar options
 export type NavbarOptions = (NavbarGroupOptions | NavbarLinkOptions)[] | false
+
+/**
+ * Navbar component
+ *
+ * 导航栏组件
+ */
+export type NavbarComponent =
+  | 'NavbarBrand'
+  | 'NavbarLinks'
+  | 'NavbarRepo'
+  | 'SearchBox'
+  | 'DarkModeToggle'
+
+/**
+ * Navbar layout options
+ *
+ * 导航栏布局选项
+ */
+export interface NavbarLayoutOptions {
+  start?: string[]
+  center?: string[]
+  end?: string[]
+}

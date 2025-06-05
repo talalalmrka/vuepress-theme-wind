@@ -1,4 +1,5 @@
 ---
+date: 2025-06-05
 title: Config
 icon: bi-gear-fill
 catalog: Guide

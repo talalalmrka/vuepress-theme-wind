@@ -15,11 +15,17 @@ export const DEFAULT_LOCALE_OPTIONS: WindThemeLocaleData = {
   footer: `Copyright reserved @ Fadgram | ${new Date().getFullYear()}`,
   // navbar
   navbar: [],
+  navbarLayout: {
+    start: ['NavbarBrand'],
+    center: ['NavbarLinks'],
+    end: ['SearchBox', 'NavbarRepo', 'DarkModeToggle']
+  },
   logo: null,
   repo: null,
 
   // sidebar
   sidebar: {},
+  sidebarLabel: 'Toggle sidebar',
 
   // page meta
   editLink: true,
