@@ -51,7 +51,7 @@ onContentUpdated(() => {
         :key="`navbar-${page.path}`" />
     </slot>
     <slot name="sidebar">
-      <Sidebar :sidebar-open="sidebarOpen" @toggle-sidebar="toggleSidebar" />
+      <Sidebar :sidebar-open="sidebarOpen" @toggle-sidebar="toggleSidebar" :key="frontmatter.home" />
     </slot>
 
     <slot name="page">
