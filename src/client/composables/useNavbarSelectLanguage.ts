@@ -3,30 +3,34 @@ import { useRoutePaths } from '@vuepress/helper/client'
 import type { ComputedRef } from 'vue'
 import { computed } from 'vue'
 import { useRoute } from 'vuepress/client'
-import type { NavbarItem } from '../typings'
+import type { NavbarItem } from '@theme-wind/client'
 
 /**
  * Get navbar config of select language dropdown
  */
-export const useNavbarSelectLanguage = (): ComputedRef<NavbarItem[]> => {
+export const useNavbarSelectLanguage = (): ComputedRef<NavbarItem | null> => {
   const route = useRoute()
   const routePaths = useRoutePaths()
   const { routeLocale, site, siteLocale, theme, themeLocale } = useData()
 
-  return computed<NavbarItem[]>(() => {
+  return computed(() => {
     const localePaths = Object.keys(site.value.locales)
+    //console.log('locales', site.value.locales)
     // do not display language selection dropdown if there is only one language
     if (localePaths.length < 2) {
-      return []
+      return null
     }
     const currentPath = route.path
     const currentFullPath = route.fullPath
 
     const languageDropdown: NavbarItem = {
-      text: `${themeLocale.value.selectLanguageText}`,
+      // text: `${themeLocale.value.selectLanguageText}`,
+      text: '',
+      icon: 'bi-translate',
       ariaLabel: `${
         themeLocale.value.selectLanguageAriaLabel ?? themeLocale.value.selectLanguageText
       }`,
+      dropdownMenuClass: 'end-0',
       children: localePaths.map(targetLocalePath => {
         // target locale config of this language link
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -61,6 +65,6 @@ export const useNavbarSelectLanguage = (): ComputedRef<NavbarItem[]> => {
       })
     }
 
-    return [languageDropdown]
+    return languageDropdown
   })
 }

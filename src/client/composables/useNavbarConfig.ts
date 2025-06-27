@@ -4,7 +4,7 @@ import { resolveAutoLink } from '../utils/resolveAutoLink'
 import { resolvePrefix } from '../utils/resolvePrefix'
 import { useData } from './useData'
 import type { NavbarGroupOptions, NavbarLinkOptions } from '../../shared/navbar'
-import type { NavbarItem } from '../typings'
+import type { NavbarItem } from '@theme-wind/client'
 const resolveNavbarItem = (
   item: NavbarGroupOptions | NavbarLinkOptions,
   prefix = ''

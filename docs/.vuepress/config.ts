@@ -5,7 +5,7 @@ import theme from './theme'
 import path from 'path'
 export default defineUserConfig({
   base: '/vuepress-theme-wind/',
-  lang: 'en-US',
+  // lang: 'en-US',
   title: 'VuePress Theme Wind',
   description: 'A beautiful VuePress theme using Tailwind CSS 4 and Fadgram UI',
   theme: theme,
@@ -14,8 +14,8 @@ export default defineUserConfig({
       base: '/vuepress-theme-wind/',
       resolve: {
         alias: {
-          '@theme': path.resolve(__dirname, '../../src'),
-          '@theme/*': path.resolve(__dirname, '../../src/*')
+          '@theme-wind': path.resolve(__dirname, '../../src'),
+          '@theme-wind/*': path.resolve(__dirname, '../../src/*')
         }
       },
       /* server: {
@@ -23,8 +23,8 @@ export default defineUserConfig({
         watch: {
           usePolling: false,
           interval: 2000,
-          binaryInterval: 2000,
-        },
+          binaryInterval: 2000
+        }
       }, */
       plugins: [tailwindcss()]
     }

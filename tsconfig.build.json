@@ -7,8 +7,12 @@
     "target": "ES2020",
     "declaration": true,
     "noEmit": false,
-    "composite": true
+    "composite": true,
+    "paths": {
+      "@theme-wind": ["src"],
+      "@theme-wind/*": ["src/*"]
+    }
   },
-  "include": ["./src"],
+  "include": ["./src", "./src/*.d.ts"],
   "exclude": ["node_modules", "**/__tests__/**", "**/tests/**", "docs"]
 }

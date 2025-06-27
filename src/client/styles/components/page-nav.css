@@ -1,12 +1,13 @@
 @layer components {
   .vp-page-nav {
-    @apply flex flex-wrap mx-auto mt-5 pt-2 pb-0 min-h-8 border-t border-solid;
+    @apply flex-space-2 flex-wrap mx-auto mt-5 pt-2 pb-0 min-h-8 border-t;
+    @apply text-sm;
     @media print {
       @apply hidden;
     }
 
     .auto-link {
-      @apply grow m-1 py-1 px-2 rounded inline-block;
+      @apply grow py-1 px-2 rounded inline-block;
       @apply border no-underline;
       @apply hover:bg-gray-100 dark:hover:bg-gray-800;
       .link {

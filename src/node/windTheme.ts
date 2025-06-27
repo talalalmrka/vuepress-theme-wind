@@ -1,17 +1,31 @@
-import type { Page, Theme } from 'vuepress/core'
+import type { App, Page, Theme } from 'vuepress/core'
 import { fs, getDirname, path } from 'vuepress/utils'
-import { ThemeOptions, ThemePageData, SiteData } from '../shared'
+import { WindThemeOptions, ThemePageData } from '../shared'
 import { assignPlugins } from './utils'
-import { addViteOptimizeDepsExclude } from '@vuepress/helper'
+import { addViteOptimizeDepsExclude, addViteOptimizeDepsInclude } from '@vuepress/helper'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 import { themeDataPlugin } from '@vuepress/plugin-theme-data'
-import { resolveThemeOptions } from './utils/resolveThemeOptions'
+import { isString } from 'vuepress/shared'
+
+import { addFavicon } from './utils/addFavicon'
+import { setMeta } from './utils/setMeta'
+import { resolveLocaleOptions } from './utils/resolveLocaleOptions'
+import { resolvePluginOptions } from './utils/resolvePluginOptions'
+import { prepareSidebarData } from './sidebar'
+import { preparePagesData } from './pages/preparePagesData'
+import { prepareLocaleData } from './locale/prepareLocaleData'
 const __dirname = import.meta.dirname || getDirname(import.meta.url)
 const componentsDir = path.resolve(__dirname, '../client/components')
 const pageInfoComponentsDir = `${componentsDir}/pageinfo`
+export const windTheme = ({
+  hostname,
+  pluginOptions = {},
+  plugins = [],
+  ...localeOptions
+}: WindThemeOptions = {}): Theme => {
+  resolveLocaleOptions(localeOptions)
+  resolvePluginOptions(pluginOptions)
 
-export const windTheme = (options: ThemeOptions): Theme => {
-  resolveThemeOptions(options)
   const pageInfoComponentsMap = Object.fromEntries(
     fs
       .readdirSync(pageInfoComponentsDir)
@@ -23,19 +37,22 @@ export const windTheme = (options: ThemeOptions): Theme => {
     name: 'vuepress-theme-wind',
     templateBuild: path.resolve(__dirname, '../../templates/build.html'),
     alias: {
-      '@theme': path.resolve(__dirname, '../client'),
+      '@theme-wind': path.resolve(__dirname, '../client'),
       ...Object.fromEntries(
         fs
           .readdirSync(path.resolve(__dirname, '../client/components'))
           .filter(file => file.endsWith('.vue'))
-          .map(file => [`@theme/${file}`, path.resolve(__dirname, '../client/components', file)])
+          .map(file => [
+            `@theme-wind/${file}`,
+            path.resolve(__dirname, '../client/components', file)
+          ])
       ),
       ...Object.fromEntries(
         fs
           .readdirSync(path.resolve(__dirname, '../client/composables'))
           .filter(file => file.endsWith('.ts'))
           .map(file => [
-            `@theme/${file.slice(0, -3)}`,
+            `@theme-wind/${file.slice(0, -3)}`,
             path.resolve(__dirname, '../client/composables', file)
           ])
       ),
@@ -44,7 +61,7 @@ export const windTheme = (options: ThemeOptions): Theme => {
           .readdirSync(path.resolve(__dirname, '../client/utils'))
           .filter(file => file.endsWith('.ts'))
           .map(file => [
-            `@theme/${file.slice(0, -3)}`,
+            `@theme-wind/${file.slice(0, -3)}`,
             path.resolve(__dirname, '../client/utils', file)
           ])
       )
@@ -54,17 +71,32 @@ export const windTheme = (options: ThemeOptions): Theme => {
 
     extendsBundlerOptions: (bundlerOptions, app) => {
       // ensure theme alias is not optimized by Vite
-      addViteOptimizeDepsExclude(bundlerOptions, app, '@theme')
+      addViteOptimizeDepsInclude(bundlerOptions, app, '@vueuse/core', true)
+
+      addViteOptimizeDepsExclude(bundlerOptions, app, '@theme-wind-wind')
     },
     async onInitialized(app) {
-      ;(app.siteData as SiteData).pages = app.pages
+      if (localeOptions.favicon) addFavicon(app, localeOptions.favicon)
+      if (localeOptions.themeColor) setMeta(app, 'theme-color', localeOptions.themeColor)
+      // ;(app.siteData as SiteData).pages = app.pages
+    },
+    async onPrepared(app) {
+      await prepareSidebarData(app, localeOptions)
+      await preparePagesData(app)
+      await prepareLocaleData(app, localeOptions)
     },
     extendsPage: (page: Page<Partial<ThemePageData>>) => {
       page.data.filePathRelative = page.filePathRelative
       page.data.title = page.frontmatter.title || page.title
       page.data.icon = page.frontmatter.icon || null
       page.routeMeta.title = page.frontmatter.title || page.title
-      page.routeMeta.icon = page.frontmatter.icon || null
+      const icon = isString(page.frontmatter.icon)
+        ? page.frontmatter.icon.startsWith('bi-')
+          ? page.frontmatter.icon
+          : `bi-${page.frontmatter.icon}`
+        : null
+      page.routeMeta.icon = icon
+      page.data.createdTime = page.data.git?.createdTime
     },
     plugins: [
       registerComponentsPlugin({
@@ -73,9 +105,15 @@ export const windTheme = (options: ThemeOptions): Theme => {
           ...pageInfoComponentsMap
         }
       }),
-      ...assignPlugins(options),
+      ...assignPlugins({
+        hostname: hostname,
+        pluginOptions: pluginOptions,
+        plugins: plugins,
+        ...localeOptions
+      }),
+      //...assignPlugins(options),
       themeDataPlugin({
-        themeData: options
+        themeData: localeOptions
       })
     ]
   }

@@ -22,6 +22,8 @@ import { SitemapPluginOptions } from '@vuepress/plugin-sitemap'
 import { MediumZoomPluginOptions } from '@vuepress/plugin-medium-zoom'
 import { TocOptions } from './toc'
 import { ReadingTimePluginOptions } from '@vuepress/plugin-reading-time'
+import { RevealJsPluginOptions } from '@vuepress/plugin-revealjs'
+
 export interface ThemePluginOptions {
   activeHeaderLinks?: ActiveHeaderLinksPluginOptions | boolean
   appendDate?: AppendDatePluginOptions | boolean
@@ -41,7 +43,9 @@ export interface ThemePluginOptions {
   mediumZoom?: MediumZoomPluginOptions | boolean
   notice?: NoticePluginOptions | boolean
   nprogress?: boolean
+  photoSwipe?: boolean
   readingTime?: ReadingTimePluginOptions | boolean
+  revealJs?: RevealJsPluginOptions | boolean
   stylize?: MarkdownStylizePluginOptions | boolean
   search?: SearchOptions | boolean
   seo?: Omit<SeoPluginOptions, 'hostname' | 'author'> | boolean

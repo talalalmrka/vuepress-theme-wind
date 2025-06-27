@@ -12,6 +12,7 @@
   html,
   body {
     @apply relative;
+    @apply font-sans;
     @apply font-poppins;
     @apply antialiased;
     @apply text-gray-700 dark:text-gray-100;
@@ -46,6 +47,9 @@
   /* On element hover, apply primary color to thumb */
   *:hover::-webkit-scrollbar-thumb {
     @apply bg-primary;
+  }
+  .vp-theme-container {
+    @apply relative min-h-screen;
   }
   h1 {
     @apply text-3xl;
@@ -146,6 +150,10 @@
       }
     }
   }
+  .link,
+  a.link {
+    @apply text-primary underline hover:text-primary dark:text-primary-500 dark:hover:text-primary-500 hover:no-underline;
+  }
   /* .vp-page {
     &:not(.vp-home) {
       @apply px-4;
@@ -173,7 +181,7 @@
       @apply border-b mt-6 pb-1;
     }
     a {
-      @apply text-primary underline hover:no-underline;
+      @apply text-primary underline hover:text-primary dark:text-primary-500 dark:hover:text-primary-500 hover:no-underline;
     }
   }
   .vp-home {
@@ -277,6 +285,30 @@
     @apply mt-3;
     @variant dark {
       @apply !bg-body-dark/90;
+    }
+  }
+  .external-link-icon {
+    .vp-content {
+      a[href*="://"],
+      a[target=_blank] {
+        &:not(.no-external-link-icon) {
+          &::after {
+            content: '';
+
+            display: inline-block;
+            flex-shrink: 0;
+
+            width: 11px;
+            height: 11px;
+            margin-top: -1px;
+            margin-inline-start: 4px;
+
+            background: var(--external-link-c-icon);
+
+            mask-image: var(--external-link-icon);
+          }
+        }
+      }
     }
   }
 }

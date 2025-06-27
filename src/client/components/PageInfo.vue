@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useData } from '@theme/client/composables';
+import { useData } from '@theme-wind/client/composables';
 const { themeLocale } = useData()
 const pageInfo = themeLocale.value.pageInfo as string[] ?? []
 const author = themeLocale.value.author;

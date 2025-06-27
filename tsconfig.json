@@ -13,8 +13,8 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "baseUrl": ".",
     "paths": {
-      "@theme": ["src"],
-      "@theme/*": ["src/*"]
+      "@theme-wind": ["src"],
+      "@theme-wind/*": ["src/*"]
     },
     "types": ["vuepress/client", "vuepress/client-types", "vite/client"],
     "outDir": "lib",
@@ -24,6 +24,7 @@
   },
   "include": [
     "env.d.ts",
+    "src/*.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",

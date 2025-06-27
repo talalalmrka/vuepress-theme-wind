@@ -6,7 +6,7 @@ import { computed } from 'vue'
 import { resolveRoute, useRoutePath } from 'vuepress/client'
 import { isPlainObject, isString } from 'vuepress/shared'
 import type { AutoLinkOptions } from '../../shared'
-import type { SidebarItem } from '../typings'
+import type { SidebarItem } from '@theme-wind/client'
 
 const resolveFromFrontmatterConfig = (
   config: AutoLinkOptions | string | false | undefined,
@@ -38,7 +38,6 @@ const resolveFromSidebarItems = (
   offset: number
 ): AutoLinkOptions | null => {
   const linkIndex = sidebarItems.findIndex(item => item.link === currentPath)
-
   if (linkIndex !== -1) {
     const targetItem = sidebarItems[linkIndex + offset] as SidebarItem | undefined
 
@@ -96,6 +95,7 @@ interface RelatedLinks {
 export const useRelatedLinks = (): RelatedLinks => {
   const { frontmatter, themeLocale } = useData()
   const sidebarItems = useSidebarItems()
+  //console.log('sidebarItems', sidebarItems.value)
   const routePath = useRoutePath()
 
   const prevLink = computed(() => {

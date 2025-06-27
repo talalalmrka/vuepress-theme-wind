@@ -4,7 +4,7 @@ import { injectLocal, provideLocal } from '@vueuse/core'
 import type { InjectionKey, Ref } from 'vue'
 import { computed, ref } from 'vue'
 import { onContentUpdated } from 'vuepress/client'
-import { useData } from '@theme/client/composables'
+import { useData } from '@theme-wind/client/composables'
 
 export type TocItemsRef = Ref<HeaderItem[]>
 

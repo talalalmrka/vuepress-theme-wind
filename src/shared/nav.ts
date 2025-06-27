@@ -5,6 +5,9 @@ export interface NavItemOptions {
   text: string
   ariaLabel?: string
   icon?: string
+  class?: string
+  dropdownClass?: string
+  dropdownMenuClass?: string
 }
 
 /**

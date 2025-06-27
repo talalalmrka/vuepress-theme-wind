@@ -1,4 +1,4 @@
-import type { ThemePluginOptions, WindThemeLocaleData } from '@theme/shared'
+import type { ThemePluginOptions, WindThemeLocaleData } from '@theme-wind/shared'
 
 export const DEFAULT_LOCALE_OPTIONS: WindThemeLocaleData = {
   // breadcrumbs
@@ -18,7 +18,7 @@ export const DEFAULT_LOCALE_OPTIONS: WindThemeLocaleData = {
   navbarLayout: {
     start: ['NavbarBrand'],
     center: ['NavbarLinks'],
-    end: ['SearchBox', 'NavbarRepo', 'DarkModeToggle']
+    end: ['SearchBox', 'SelectLanguage', 'NavbarRepo', 'DarkModeToggle']
   },
   logo: null,
   repo: null,
@@ -26,22 +26,33 @@ export const DEFAULT_LOCALE_OPTIONS: WindThemeLocaleData = {
   // sidebar
   sidebar: {},
   sidebarLabel: 'Toggle sidebar',
+  //external link icon
+  externalLinkIcon: true,
 
+  //theme color
+  themeColor: '#009966',
   // page meta
   editLink: true,
   editLinkText: 'Edit this page',
+  editLinkIcon: 'bi-pencil-square',
+  editLinkClass: 'edit-link',
   lastUpdated: true,
   lastUpdatedText: 'Last updated',
+  lastUpdatedIcon: 'bi-clock',
   contributors: true,
   contributorsText: 'Contributors',
-
+  contributorsIcon: 'bi-person',
+  changelog: true,
   // 404 page messages
-  notFound: [
-    `There's nothing here.`,
-    `How did we get here?`,
-    `That's a Four-Oh-Four.`,
-    `Looks like we've got some broken links.`
+  skipToContent: 'Skip to main content',
+  notFoundTitle: 'Page not found',
+  notFoundMsg: [
+    'There’s nothing here.',
+    'How did we get here?',
+    'That’s a Four-Oh-Four.',
+    "Looks like we've got some broken links."
   ],
+  back: 'Go back',
   backToHome: 'Take me home',
 
   // a11y
@@ -61,13 +72,16 @@ export const DEFAULT_LOCALE_OPTIONS: WindThemeLocaleData = {
   prevIcon: 'bi-chevron-left',
   readingTimeIcon: 'bi-hourglass-bottom',
   readingTimeLabel: 'Reading time',
-  pageInfo: ['ReadingTime', 'Author'],
-  authorIcon: 'bi-person'
-}
-
-export const DEFAULT_LOCALE_DATA: WindThemeLocaleData = {
-  // navbar
-  selectLanguageName: 'English'
+  pageInfo: ['Author', 'ReadingTime', 'CreatedTime'],
+  authorIcon: 'bi-person',
+  createdTimeText: 'Created at',
+  createdTimeIcon: 'bi-calendar',
+  selectLanguageText: 'Languages',
+  selectLanguageAriaLabel: 'Select language',
+  navbarLocales: {
+    selectLangAriaLabel: 'Select language',
+    langName: 'English'
+  }
 }
 
 // default plugin options
@@ -75,7 +89,6 @@ export const DEFAULT_PLUGIN_OPTIONS: ThemePluginOptions = {
   activeHeaderLinks: {
     headerAnchorSelector: '.header-anchor',
     headerLinkSelector: '.vp-toc-link',
-    // offset: 68
     offset: 73
   },
   appendDate: {},
@@ -104,7 +117,10 @@ export const DEFAULT_PLUGIN_OPTIONS: ThemePluginOptions = {
     tasklist: true,
     vPre: true
   },
-  git: {},
+  git: {
+    createdTime: true,
+    changelog: true
+  },
   highlight: {
     type: 'shiki',
     themes: {
@@ -117,10 +133,10 @@ export const DEFAULT_PLUGIN_OPTIONS: ThemePluginOptions = {
     hint: true,
     injectStyles: true
   },
-  icon: {
+  /* icon: {
     prefix: 'bi',
     type: 'iconify'
-  },
+  }, */
   image: {
     figure: true,
     lazyload: true,
@@ -137,7 +153,9 @@ export const DEFAULT_PLUGIN_OPTIONS: ThemePluginOptions = {
     config: []
   },
   nprogress: true,
+  photoSwipe: true,
   readingTime: {},
+  revealJs: {},
   search: {
     provider: 'local',
     locales: {

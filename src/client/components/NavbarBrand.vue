@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { withBase } from '@vuepress/client'
+import { withBase } from 'vuepress/client'
 import { useDark } from '@vueuse/core'
 import { isString } from 'vuepress/shared'
-import { useData } from '@theme/client/composables'
+import { useData, useWindowSize } from '@theme-wind/client/composables'
 const isDark = useDark()
 const { themeLocale, siteLocale } = useData()
+const { isMobile } = useWindowSize()
 const { navbarBrandClass, logoClass, logoAlt } = themeLocale.value;
 const logo = computed(() => {
   const img = isDark.value && themeLocale.value.logoDark ? themeLocale.value.logoDark : themeLocale.value.logo
@@ -16,6 +17,6 @@ const title = computed(() => themeLocale.value.navbarTitle !== false ? (isString
 <template>
   <RouteLink to="/" class="vp-navbar-brand" :class="navbarBrandClass">
     <img v-if="logo" :src="logo" class="vp-navbar-logo" :class="logoClass" :alt="logoAlt" />
-    <span v-if="title" class="v-navbar-title">{{ title }}</span>
+    <span v-if="title" v-show="!isMobile" class="v-navbar-title">{{ title }}</span>
   </RouteLink>
 </template>

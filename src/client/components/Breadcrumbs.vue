@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useData, useBreadcrumb } from '@theme/client/composables';
-//import { useBreadcrumb } from '@theme/client/composables/useBreadcrumb';
+import { useData, useBreadcrumb } from '@theme-wind/client/composables';
+//import { useBreadcrumb } from '@theme-wind/client/composables/useBreadcrumb';
 const { page } = useData()
 const { separator, items } = useBreadcrumb()
 //const pathSegments = page.value.path.split('/').filter(Boolean)

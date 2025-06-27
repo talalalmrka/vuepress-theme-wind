@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useData } from '@theme/client/composables'
-import type { Author, AuthorInfo } from '@theme/shared'
+import { useData } from '@theme-wind/client/composables'
+import type { Author, AuthorInfo } from '@theme-wind/shared'
 
 const { themeLocale } = useData()
 const rawAuthor = themeLocale.value.author as Author | undefined

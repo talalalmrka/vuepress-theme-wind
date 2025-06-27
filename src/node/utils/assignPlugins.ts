@@ -1,5 +1,4 @@
 import { prismjsPlugin, PrismjsPluginOptions } from '@vuepress/plugin-prismjs'
-import { ThemeOptions } from '../../shared'
 import { shikiPlugin, ShikiPluginOptions } from '@vuepress/plugin-shiki'
 import { copyCodePlugin, CopyCodePluginOptions } from '@vuepress/plugin-copy-code'
 import { markdownTabPlugin, MarkdownTabPluginOptions } from '@vuepress/plugin-markdown-tab'
@@ -41,21 +40,24 @@ import { PluginConfig } from 'vuepress'
 import { readingTimePlugin, ReadingTimePluginOptions } from '@vuepress/plugin-reading-time'
 import { seoPlugin, SeoPluginOptions } from '@vuepress/plugin-seo'
 import { sitemapPlugin, SitemapPluginOptions } from '@vuepress/plugin-sitemap'
+import { photoSwipePlugin } from '@vuepress/plugin-photo-swipe'
+import { revealJsPlugin, RevealJsPluginOptions } from '@vuepress/plugin-revealjs'
+import { ThemePluginOptions, WindThemeOptions } from '../../shared'
 
 function getSEOPluginOptions(
-  themeOptions: ThemeOptions,
+  hostname,
+  author,
   seoOption: Omit<SeoPluginOptions, 'hostname' | 'author'> | boolean
 ): SeoPluginOptions {
   const baseOptions = typeof seoOption === 'boolean' ? {} : seoOption
   return {
     ...baseOptions,
-    hostname: themeOptions.hostname,
-    author: themeOptions.author
+    hostname: hostname,
+    author: author
   }
 }
-
 function getSitemapPluginOptions(
-  themeOptions: ThemeOptions,
+  themeOptions: WindThemeOptions,
   sitemapOption: Omit<SitemapPluginOptions, 'hostname'> | boolean
 ): SitemapPluginOptions {
   const baseOptions = typeof sitemapOption === 'boolean' ? {} : sitemapOption
@@ -64,60 +66,58 @@ function getSitemapPluginOptions(
     hostname: themeOptions.hostname
   }
 }
-export const assignPlugins = (options: ThemeOptions): PluginConfig => {
+export const assignPlugins = (options: WindThemeOptions): PluginConfig => {
+  const pluginOptions: ThemePluginOptions = options.pluginOptions ?? {}
+  const plugins = options.plugins ?? []
   return [
-    ...(options.plugins ?? []),
+    ...plugins,
 
     // ==================== Features ====================
 
     // Append Date Plugin
     // Automatically appends creation and update dates to pages
-    ...(options.pluginOptions?.appendDate
-      ? [appendDatePlugin((options.pluginOptions.appendDate as AppendDatePluginOptions) ?? {})]
+    ...(pluginOptions?.appendDate
+      ? [appendDatePlugin((pluginOptions.appendDate as AppendDatePluginOptions) ?? {})]
       : []),
 
     // Back to Top Plugin
     // Adds a button to scroll back to the top of the page
-    ...(options.pluginOptions?.backToTop
-      ? [backToTopPlugin((options.pluginOptions.backToTop as BackToTopPluginOptions) ?? {})]
+    ...(pluginOptions?.backToTop
+      ? [backToTopPlugin((pluginOptions.backToTop as BackToTopPluginOptions) ?? {})]
       : []),
 
     // Copy Code Plugin
     // Adds a copy button to code blocks
-    ...(options.pluginOptions?.copyCode
-      ? [copyCodePlugin((options.pluginOptions.copyCode as CopyCodePluginOptions) ?? {})]
+    ...(pluginOptions?.copyCode
+      ? [copyCodePlugin((pluginOptions.copyCode as CopyCodePluginOptions) ?? {})]
       : []),
 
     // Git Plugin
     // Provides git-related information like last updated time
-    ...(options.pluginOptions?.git
-      ? [gitPlugin((options.pluginOptions.git as GitPluginOptions) ?? {})]
-      : []),
+    ...(pluginOptions?.git ? [gitPlugin((pluginOptions.git as GitPluginOptions) ?? {})] : []),
 
     // Icon Plugin
     // Enables using icons from popular icon sets
-    ...(options.pluginOptions?.icon
-      ? [iconPlugin((options.pluginOptions.icon as IconPluginOptions) ?? {})]
-      : []),
+    ...(pluginOptions?.icon ? [iconPlugin((pluginOptions.icon as IconPluginOptions) ?? {})] : []),
 
     // Links Check Plugin
     // Checks for broken links in your documentation
-    ...(options.pluginOptions?.linksCheck
-      ? [linksCheckPlugin((options.pluginOptions.linksCheck as LinksCheckPluginOptions) ?? {})]
+    ...(pluginOptions?.linksCheck
+      ? [linksCheckPlugin((pluginOptions.linksCheck as LinksCheckPluginOptions) ?? {})]
       : []),
 
     // Medium Zoom Plugin
     // Adds a zoom effect to images
-    ...(options.pluginOptions?.mediumZoom
-      ? [mediumZoomPlugin((options.pluginOptions.mediumZoom as MediumZoomPluginOptions) ?? {})]
+    ...(pluginOptions?.mediumZoom
+      ? [mediumZoomPlugin((pluginOptions.mediumZoom as MediumZoomPluginOptions) ?? {})]
       : []),
 
     // Notice Plugin
     // Adds notice containers for important information
-    ...(options.pluginOptions?.notice
+    ...(pluginOptions?.notice
       ? [
           noticePlugin(
-            (options.pluginOptions.notice as NoticePluginOptions) ?? {
+            (pluginOptions.notice as NoticePluginOptions) ?? {
               config: []
             }
           )
@@ -125,138 +125,146 @@ export const assignPlugins = (options: ThemeOptions): PluginConfig => {
       : []),
     // NProgress Plugin
     // Shows a progress bar during page navigation
-    ...(options.pluginOptions?.nprogress ? [nprogressPlugin()] : []),
+    ...(pluginOptions?.nprogress ? [nprogressPlugin()] : []),
+
+    // Photo swipe
+    ...(pluginOptions?.photoSwipe ? [photoSwipePlugin()] : []),
 
     // Table of Contents Plugin
     // Generates a table of contents for your pages
-    /* ...(options.pluginOptions?.toc
-      ? [tocPlugin(options.pluginOptions.toc as TocPluginOptions)]
+    /* ...(pluginOptions?.toc
+      ? [tocPlugin(pluginOptions.toc as TocPluginOptions)]
       : []), */
 
     // Catalog Plugin
     // Generates a catalog for your pages
-    ...(options.pluginOptions?.catalog
-      ? [catalogPlugin(options.pluginOptions.catalog as CatalogPluginOptions)]
+    ...(pluginOptions?.catalog
+      ? [catalogPlugin(pluginOptions.catalog as CatalogPluginOptions)]
       : []),
 
     // ==================== Markdown Extensions ====================
 
     // Markdown Container Plugin
     // Adds custom container syntax to markdown
-    ...(options.pluginOptions?.container
-      ? [markdownContainerPlugin(options.pluginOptions.container as MarkdownContainerPluginOptions)]
+    ...(pluginOptions?.container
+      ? [markdownContainerPlugin(pluginOptions.container as MarkdownContainerPluginOptions)]
       : []),
 
     // Markdown Extensions Plugin
     // Provides additional markdown syntax features
-    ...(options.pluginOptions?.ext
-      ? [markdownExtPlugin(options.pluginOptions.ext as MarkdownExtPluginOptions)]
+    ...(pluginOptions?.ext
+      ? [markdownExtPlugin(pluginOptions.ext as MarkdownExtPluginOptions)]
       : []),
 
     // Markdown Hint Plugin
     // Adds hint/tip containers to markdown
-    ...(options.pluginOptions?.hint
-      ? [markdownHintPlugin(options.pluginOptions.hint as MarkdownHintPluginOptions)]
+    ...(pluginOptions?.hint
+      ? [markdownHintPlugin(pluginOptions.hint as MarkdownHintPluginOptions)]
       : []),
 
     // Markdown Image Plugin
     // Enhanced image handling in markdown
-    ...(options.pluginOptions?.image
-      ? [markdownImagePlugin(options.pluginOptions.image as MarkdownImagePluginOptions)]
+    ...(pluginOptions?.image
+      ? [markdownImagePlugin(pluginOptions.image as MarkdownImagePluginOptions)]
       : []),
 
     // Markdown Include Plugin
     // Allows including other markdown files
-    ...(options.pluginOptions?.include
-      ? [markdownIncludePlugin(options.pluginOptions.include as MarkdownIncludePluginOptions)]
+    ...(pluginOptions?.include
+      ? [markdownIncludePlugin(pluginOptions.include as MarkdownIncludePluginOptions)]
       : []),
 
     // Markdown Math Plugin
     // Adds mathematical equation support
-    ...(options.pluginOptions?.math
-      ? [markdownMathPlugin(options.pluginOptions.math as MarkdownMathPluginOptions)]
+    ...(pluginOptions?.math
+      ? [markdownMathPlugin(pluginOptions.math as MarkdownMathPluginOptions)]
       : []),
 
     // Markdown Stylize Plugin
     // Custom styling for markdown elements
-    ...(options.pluginOptions?.stylize
-      ? [markdownStylizePlugin(options.pluginOptions.stylize as MarkdownStylizePluginOptions)]
+    ...(pluginOptions?.stylize
+      ? [markdownStylizePlugin(pluginOptions.stylize as MarkdownStylizePluginOptions)]
       : []),
 
     // Markdown Tab Plugin
     // Adds tabbed content support to markdown
-    ...(options.pluginOptions?.tab
-      ? [markdownTabPlugin(options.pluginOptions.tab as MarkdownTabPluginOptions)]
+    ...(pluginOptions?.tab
+      ? [markdownTabPlugin(pluginOptions.tab as MarkdownTabPluginOptions)]
       : []),
 
     // Reading time
     // Adds reading time to page info
-    ...(options.pluginOptions?.readingTime
-      ? [readingTimePlugin(options.pluginOptions.readingTime as ReadingTimePluginOptions)]
+    ...(pluginOptions?.readingTime
+      ? [readingTimePlugin(pluginOptions.readingTime as ReadingTimePluginOptions)]
+      : []),
+
+    // Revealjs
+    ...(pluginOptions?.revealJs
+      ? [revealJsPlugin(pluginOptions.revealJs as RevealJsPluginOptions)]
       : []),
 
     // ==================== Syntax Highlighting ====================
 
     // Prism.js Syntax Highlighting
     // Code syntax highlighting using Prism.js
-    ...(options.pluginOptions?.highlight &&
-    typeof options.pluginOptions.highlight === 'object' &&
-    options.pluginOptions.highlight.type === 'prismjs'
-      ? [prismjsPlugin((options.pluginOptions.highlight as PrismjsPluginOptions) ?? {})]
+    ...(pluginOptions?.highlight &&
+    typeof pluginOptions.highlight === 'object' &&
+    pluginOptions.highlight.type === 'prismjs'
+      ? [prismjsPlugin((pluginOptions.highlight as PrismjsPluginOptions) ?? {})]
       : []),
 
     // Shiki Syntax Highlighting
     // Code syntax highlighting using Shiki
-    ...(options.pluginOptions?.highlight &&
-    typeof options.pluginOptions.highlight === 'object' &&
-    options.pluginOptions.highlight.type === 'shiki'
-      ? [shikiPlugin((options.pluginOptions.highlight as ShikiPluginOptions) ?? {})]
+    ...(pluginOptions?.highlight &&
+    typeof pluginOptions.highlight === 'object' &&
+    pluginOptions.highlight.type === 'shiki'
+      ? [shikiPlugin((pluginOptions.highlight as ShikiPluginOptions) ?? {})]
       : []),
 
     // ==================== Search Plugins ====================
 
     // DocSearch Plugin
     // Algolia DocSearch integration
-    ...(options.pluginOptions?.search &&
-    typeof options.pluginOptions.search === 'object' &&
-    options.pluginOptions.search.provider === 'docsearch'
-      ? [docsearchPlugin(options.pluginOptions.search as DocSearchPluginOptions)]
+    ...(pluginOptions?.search &&
+    typeof pluginOptions.search === 'object' &&
+    pluginOptions.search.provider === 'docsearch'
+      ? [docsearchPlugin(pluginOptions.search as DocSearchPluginOptions)]
       : []),
 
     // MeiliSearch Plugin
     // Integration with MeiliSearch search engine
-    ...(options.pluginOptions?.search &&
-    typeof options.pluginOptions.search === 'object' &&
-    options.pluginOptions.search.provider === 'meilisearch'
-      ? [meilisearchPlugin(options.pluginOptions.search as MeiliSearchPluginOptions)]
+    ...(pluginOptions?.search &&
+    typeof pluginOptions.search === 'object' &&
+    pluginOptions.search.provider === 'meilisearch'
+      ? [meilisearchPlugin(pluginOptions.search as MeiliSearchPluginOptions)]
       : []),
 
     // SlimSearch Plugin
     // Lightweight client-side search
-    ...(options.pluginOptions?.search &&
-    typeof options.pluginOptions.search === 'object' &&
-    options.pluginOptions.search.provider === 'slimsearch'
-      ? [slimsearchPlugin(options.pluginOptions.search as SlimSearchPluginOptions)]
+    ...(pluginOptions?.search &&
+    typeof pluginOptions.search === 'object' &&
+    pluginOptions.search.provider === 'slimsearch'
+      ? [slimsearchPlugin(pluginOptions.search as SlimSearchPluginOptions)]
       : []),
 
     // Built-in Search Plugin
     // VuePress's default search functionality
-    ...(options.pluginOptions?.search &&
-    typeof options.pluginOptions.search === 'object' &&
-    options.pluginOptions.search.provider === 'local'
-      ? [searchPlugin(options.pluginOptions.search as SearchPluginOptions)]
+    ...(pluginOptions?.search &&
+    typeof pluginOptions.search === 'object' &&
+    pluginOptions.search.provider === 'local'
+      ? [searchPlugin(pluginOptions.search as SearchPluginOptions)]
       : []),
 
     // ==================== SEO & Sitemap ====================
 
     // SEO Plugin
-    ...(options.pluginOptions?.seo
-      ? [seoPlugin(getSEOPluginOptions(options, options.pluginOptions.seo))]
+    ...(pluginOptions?.seo
+      ? [seoPlugin(getSEOPluginOptions(options.hostname, options.author, pluginOptions.seo))]
       : []),
 
     // Sitemap Plugin
-    ...(options.pluginOptions?.sitemap
-      ? [sitemapPlugin(getSitemapPluginOptions(options, options.pluginOptions.sitemap))]
+    ...(pluginOptions?.sitemap
+      ? [sitemapPlugin(getSitemapPluginOptions(options, pluginOptions.sitemap))]
       : [])
   ]
 }

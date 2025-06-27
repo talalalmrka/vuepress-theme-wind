@@ -1,0 +1,24 @@
+@layer components {
+  .vp-page-meta {
+    @apply flex flex-wrap justify-between;
+    @apply overflow-auto;
+    /* @apply py-3; */
+    @apply text-sm;
+    @apply border-t pt-4;
+    .vp-meta-item {
+      @apply grow flex-space-1;
+      &:not(a) {
+        /* @apply text-muted; */
+      }
+      &.last-updated,
+      &.contributors {
+        @apply text-end justify-end;
+      }
+      .meta-item-label {
+      }
+      .meta-item-info {
+        @apply text-muted;
+      }
+    }
+  }
+}

@@ -2,471 +2,245 @@ import type { ThemeData } from '@vuepress/plugin-theme-data'
 import type { LocaleData } from 'vuepress/shared'
 import { PluginConfig } from 'vuepress'
 
-import { NavbarOptions, NavbarLayoutOptions } from './navbar'
+import { NavbarOptions, NavbarLayoutOptions, NavbarLocaleData } from './navbar'
 import { SidebarOptions } from './sidebar'
 import { ThemePluginOptions } from './plugins'
 import { BreadcrumbsOptions } from './breadcrumbs'
 import { TocOptions } from './toc'
 import { PageInfoType } from './page'
 import { Author } from './author'
+import { ChangelogOptions } from '@vuepress/plugin-git'
 
-/**
- * Wind Theme Locale Configuration
- * Extends VuePress's base locale settings with theme-specific options
- *
- * Usage in config:
- *
- * export default defineUserConfig({
- *   locales: {
- *     '/': {
- *       // WindThemeLocaleData options here
- *     }
- *   }
- * })
- */
+export type WindThemeLocaleOptions = WindThemeData
+
+export type WindThemeData = ThemeData<WindThemeLocaleData>
 export interface WindThemeLocaleData extends LocaleData {
-  /**
-   * Default author information shown in page metadata
-   *
-   * Example: { name: 'John Doe', email: 'john@example.com' }
-   */
+  // Author
   author?: Author
 
-  /**
-   * Breadcrumb navigation configuration
-   * Set to `false` to disable breadcrumbs
-   *
-   * Default: Enabled with default settings
-   */
+  // Breadcrumbs
   breadcrumbs?: BreadcrumbsOptions | false
 
-  /**
-   * Enable dark mode toggle functionality
-   *
-   * Default: true (dark mode available)
-   */
+  // Dark mode
   darkMode?: boolean
 
-  /**
-   * Show external link icon indicator (↗) for external URLs
-   *
-   * Default: true
-   */
+  // Theme Color
+  themeColor?: string
+
+  // Extrnal link icon
   externalLinkIcon?: boolean
 
-  /**
-   * Text for "Home" link in navigation elements
-   *
-   * Default: 'Home'
-   */
+  // Home
   home?: string
 
-  /**
-   * Navigation bar configuration
-   * Set to `false` to disable navbar completely
-   *
-   * Default: Auto-generated from page headers
-   */
+  // Navbar
   navbar?: NavbarOptions | false
-  /**
-   * Custom CSS class for entire navbar container
-   */
+
+  // Navbar class name
   navbarClass?: string
-  /**
-   * ARIA label for main navigation (accessibility)
-   *
-   * Default: 'Navigation'
-   */
+
+  // Navbar label
   navbarLabel?: string
 
-  /**
-   * Text for navbar title/logo area
-   * Set to `false` to hide title
-   *
-   * Default: Site title
-   */
+  // Navbar title
   navbarTitle?: string | false
 
-  /**
-   * Custom CSS class for navbar title element
-   */
+  // Navbar title class
   navbarTitleClass?: string
-  /**
-   * Custom CSS class for navbar brand container (logo + title)
-   */
+
+  // Navbar brand class
   navbarBrandClass?: string
-  /**
-   * Navbar layout config
-   *
-   * 导航栏布局设置
-   *
-   * @default { start: ["Brand"], center: ["Links"], end: ["Language", "Repo", "Outlook", "Search"] }
-   */
+
+  // Navbar layout config @default { start: ["Brand"], center: ["Links"], end: ["Language", "Repo", "Outlook", "Search"] }
   navbarLayout?: NavbarLayoutOptions
-  /**
-   * ARIA label for page-specific navigation (accessibility)
-   *
-   * Default: 'Page navigation'
-   */
+
+  // Navbar locales
+  navbarLocales?: NavbarLocaleData
+  // ARIA label for page-specific navigation (accessibility) Default: 'Page navigation'
   pageNavbarLabel?: string | null
 
-  /**
-   * Path to light mode logo image
-   *
-   * Default: '/favicon.ico'
-   */
+  // Logo
   logo?: string | null
 
-  /**
-   * Path to dark mode logo image
-   *
-   * Default: Same as light mode logo
-   */
+  // Logo dark
   logoDark?: string | null
 
-  /**
-   * Alt text for logo image (accessibility)
-   *
-   * Default: Site title
-   */
+  // Logo Alt
   logoAlt?: string | null
 
-  /**
-   * Custom CSS class for logo image
-   */
+  // Custom CSS class for logo image
   logoClass?: string
 
-  /**
-   * Path to site favicon
-   *
-   * Default: '/favicon.ico'
-   */
+  // Path to site favicon
   favicon?: string | null
 
-  /**
-   * Repository URL (GitHub/GitLab/Bitbucket)
-   *
-   * Example: 'https://github.com/vuepress/vuepress-next'
-   */
+  // Repository URL (GitHub/GitLab/Bitbucket)
   repo?: string | null
 
-  /**
-   * Repository link text
-   *
-   * Default: 'Repo'
-   */
+  // Repository link text
   repoLabel?: string
 
-  /**
-   * Language selection dropdown text
-   *
-   * Default: 'Languages'
-   */
+  // Language selection dropdown text
   selectLanguageText?: string
 
-  /**
-   * ARIA label for language selector (accessibility)
-   *
-   * Default: 'Select language'
-   */
+  // ARIA label for language selector (accessibility)
   selectLanguageAriaLabel?: string
 
-  /**
-   * Display name for current language
-   *
-   * Default: Locale name
-   */
+  // Display name for current language
   selectLanguageName?: string
 
-  /**
-   * Sidebar configuration
-   * Set to `false` to disable sidebar
-   *
-   * Default: Auto-generated from page headers
-   */
-  sidebar?: SidebarOptions | false
-  /**
-   * ARIA label for main navigation (accessibility)
-   *
-   * Default: 'Navigation'
-   */
+  // Sidebar configuration
+  sidebar?: SidebarOptions
+
+  // ARIA label for main navigation (accessibility)
   sidebarLabel?: string
-  /**
-   * Custom CSS class for sidebar
-   */
+
+  // Custom CSS class for sidebar
   sidebarClass?: string
-  /**
-   * Custom CSS class for sidebar toggle button
-   */
+
+  // Custom CSS class for sidebar toggle button
   sidebarToggleClass?: string
-  /**
-   * Custom CSS class for sidebar toggle button
-   */
+
+  // Custom CSS class for sidebar toggle button
   sidebarOverlayClass?: string
-  /**
-   * Show "Edit this page" link
-   *
-   * Default: true
-   */
+
+  // Sidebar depth
+  sidebarDepth?: number
+
+  // Show "Edit this page" link
   editLink?: boolean
 
-  /**
-   * Text for edit link
-   *
-   * Default: 'Edit this page'
-   */
+  // Text for edit link
   editLinkText?: string
 
-  /**
-   * Pattern for edit link URL
-   *
-   * Placeholders:
-   *   :repo    - docsRepo value
-   *   :branch  - docsBranch value
-   *   :path    - Relative file path
-   *   :dir     - docsDir value
-   *
-   * Default: ':repo/edit/:branch/:path'
-   */
+  // Pattern for edit link URL
   editLinkPattern?: string
 
-  /**
-   * Documentation repository URL
-   *
-   * Default: repo value
-   */
+  // Edit link icon
+  editLinkIcon?: string
+  // Edit link css class
+  editLinkClass?: string
+
+  // Documentation repository URL
   docsRepo?: string
 
-  /**
-   * Documentation repository branch
-   *
-   * Default: 'main'
-   */
+  // Documentation repository branch Default: 'main'
   docsBranch?: string
 
-  /**
-   * Documentation directory in repository
-   *
-   * Default: ''
-   */
+  // Documentation directory in repository default: 'docs'
   docsDir?: string
 
-  /**
-   * Show last updated timestamp
-   *
-   * Default: true
-   */
+  // Show last updated timestamp default true
   lastUpdated?: boolean
 
-  /**
-   * Text prefix for last updated timestamp
-   *
-   * Default: 'Last Updated: '
-   */
+  // Text prefix for last updated timestamp Default: 'Last Updated: '
   lastUpdatedText?: string
 
-  /**
-   * Show page contributors
-   *
-   * Default: true
-   */
+  // Last updated icon
+  lastUpdatedIcon?: string
+
+  // Show page contributors Default: true
   contributors?: boolean
 
-  /**
-   * Text prefix for contributors list
-   *
-   * Default: 'Contributors: '
-   */
+  // Text prefix for contributors list Default: 'Contributors: '
   contributorsText?: string
 
-  /**
-   * Default text for tip callouts
-   *
-   * Default: 'TIP'
-   */
+  // Contributors icon
+  contributorsIcon?: string
+
+  // Whether to get the changelog of a page
+  changelog?: ChangelogOptions | boolean
+
+  // Changelog title
+  changelogTitle?: string
+
+  // Changelog icon
+  changelogIcon?: string
+
+  // Default text for tip callouts Default: 'TIP'
   tip?: string
 
-  /**
-   * Default text for warning callouts
-   *
-   * Default: 'WARNING'
-   */
+  // Default text for warning callouts Default: 'WARNING'
   warning?: string
 
-  /**
-   * Default text for danger callouts
-   *
-   * Default: 'DANGER'
-   */
+  // Default text for danger callouts Default: 'DANGER'
   danger?: string
 
-  /**
-   * Default text for important callouts
-   *
-   * Default: 'IMPORTANT'
-   */
+  // Default text for important callouts Default: 'IMPORTANT'
   important?: string
 
-  /**
-   * Default text for note callouts
-   *
-   * Default: 'NOTE'
-   */
+  // Default text for note callouts
   note?: string
 
-  /**
-   * Custom messages for 404 page
-   *
-   * Example: ["Oops! That page doesn't exist"]
-   */
-  notFound?: string[]
+  // Skip to content Default: 'Skip to main content'
+  skipToContent?: string
 
-  /**
-   * "Back to home" link text on 404 page
-   *
-   * Default: 'Back to home'
-   */
+  // Not found title Default: 'Page Not Found'
+  notFoundTitle?: string
+
+  // Custom messages for 404 page Example: ["Oops! That page doesn't exist"]
+  notFoundMsg?: string[]
+
+  // "Back to home" link text on 404 page Default: 'Back to home'
   backToHome?: string
 
-  /**
-   * Accessibility text for new window links
-   *
-   * Default: 'open in new window'
-   */
+  // "Back" link text on 404 page Default: 'Back'
+  back?: string
+
+  // Accessibility text for new window links Default: 'open in new window'
   openInNewWindow?: string
 
-  /**
-   * Accessibility label for color mode toggle
-   *
-   * Default: 'Toggle color mode'
-   */
+  // Accessibility label for color mode toggle Default: 'Toggle color mode'
   toggleColorMode?: string
 
-  /**
-   * Accessibility label for sidebar toggle
-   *
-   * Default: 'Toggle sidebar'
-   */
+  // Accessibility label for sidebar toggle Default: 'Toggle sidebar'
   toggleSidebar?: string
 
-  /**
-   * Previous page link text
-   * Set to `false` to hide
-   *
-   * Default: 'Previous'
-   */
+  // Previous page link text Set to `false` to hide Default: 'Prev'
   prev?: string | false
 
-  /**
-   * Icon for previous page link
-   * Set to `false` to hide icon
-   *
-   * Default: '←'
-   */
+  // Icon for previous page link Set to `false` to hide icon Default: 'bi-chevron-right'
   prevIcon?: string | false
 
-  /**
-   * Next page link text
-   * Set to `false` to hide
-   *
-   * Default: 'Next'
-   */
+  // Next page link text Set to `false` to hide Default: 'Next'
+
   next?: string | false
 
-  /**
-   * Icon for next page link
-   * Set to `false` to hide icon
-   *
-   * Default: '→'
-   */
+  // Icon for next page link Set to `false` to hide icon Default: 'bi-chevron-left'
   nextIcon?: string | false
 
-  /**
-   * Footer content (HTML supported)
-   * Set to `false` to disable footer
-   *
-   * Example: 'Copyright © 2023'
-   */
+  // Footer content (HTML supported) Set to `false` to disable footer Example: 'Copyright © 2023'
   footer?: string | false
 
-  /**
-   * Table of contents configuration
-   * Set to `false` to disable TOC
-   *
-   * Default: Enabled with depth 2
-   */
+  // Table of contents configuration Set to `false` to disable TOC
   toc?: TocOptions | false
 
-  /**
-   * Icon for reading time indicator
-   *
-   * Default: '⏱️'
-   */
+  // Icon for reading time indicator
   readingTimeIcon?: string
 
-  /**
-   * Accessibility label for reading time
-   *
-   * Default: 'Reading time'
-   */
+  // Accessibility label for reading time
   readingTimeLabel?: string
 
-  /**
-   * Metadata items shown below page title
-   *
-   * Available options:
-   *   'Author', 'Date', 'Original', 'Category', 'Tag', 'ReadingTime'
-   *
-   * Set to `false` to disable
-   *
-   * Default: ['Author', 'Date', 'ReadingTime']
-   */
+  // Metadata items shown below page title
+  // Available options: 'Author', 'Date', 'Original', 'Category', 'Tag', 'ReadingTime'
+  // Set to `false` to disable
+  // Default: ['Author', 'Date', 'ReadingTime']
   pageInfo?: PageInfoType[] | false
 
-  /**
-   * Icon for author metadata
-   * Set to `false` to hide icon
-   *
-   * Default: '👤'
-   */
+  // Created at text
+  createdTimeText?: string
+
+  // Created at icon
+  createdTimeIcon?: string
+
+  // Icon for author metadata Default: 'bi-person'
   authorIcon?: string | false
+
+  // Print aria label
+  printLabel?: string
 }
-
-/**
- * Root Theme Configuration
- * Combines locale settings with global theme options
- *
- * Usage in config:
- *
- * export default defineUserConfig({
- *   theme: windTheme({
- *     // ThemeOptions here
- *   })
- * })
- */
-export interface ThemeOptions extends WindThemeLocaleData {
-  /**
-   * Base URL of the site (used for SEO and canonical URLs)
-   *
-   * Example: 'https://example.com'
-   */
+export interface WindThemeOptions extends WindThemeLocaleOptions {
   hostname?: string
-
-  /**
-   * Configuration for theme's built-in plugins
-   */
   pluginOptions?: ThemePluginOptions
-
-  /**
-   * Custom VuePress plugins to use with theme
-   *
-   * Example: [['@vuepress/plugin-pwa', { ... }]]
-   */
   plugins?: PluginConfig
 }
-
-/**
- * Final Theme Data Type
- * Used internally by VuePress with Wind theme options
- */
-export type WindThemeData = ThemeData<ThemeOptions>

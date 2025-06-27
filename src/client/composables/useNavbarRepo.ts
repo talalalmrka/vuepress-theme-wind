@@ -3,7 +3,7 @@ import { useData } from './useData'
 import type { ComputedRef } from 'vue'
 import { computed } from 'vue'
 import { isLinkHttp } from 'vuepress/shared'
-import type { NavbarItem } from '../typings'
+import type { NavbarItem } from '@theme-wind/client'
 
 /**
  * Get navbar config of repository link

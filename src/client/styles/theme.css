@@ -20,7 +20,7 @@
   --breakpoint-xs: 20rem;
   /* Body */
   --color-body: var(--color-white);
-  --color-body-dark: var(--color-gray-900);
+  --color-body-dark: var(--color-gray-950);
 
   /* Border */
   --color-border: var(--color-gray-200);
@@ -43,4 +43,28 @@
   --spacing-toc: --spacing(48);
   --container-toc-height: 80vh;
   --spacing-toc-height: 80vh;
+
+  --animate-slide-down: slideDown 250ms ease-in-out;
+  --animate-slide-up: slideUp 250ms ease-in-out;
+
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-100px);
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

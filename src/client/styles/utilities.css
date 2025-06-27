@@ -86,3 +86,102 @@
     }
   }
 }
+@utility badge-xs {
+  @apply px-1 py-0;
+  @apply font-extralight;
+}
+@utility badge-sm {
+  @apply px-1.5 py-0;
+  @apply font-extralight;
+}
+@utility badge-lg {
+  @apply text-sm font-medium;
+}
+@utility badge-xl {
+  @apply text-base px-3 py-1 font-medium;
+}
+@utility badge-xxl {
+  @apply text-lg px-4 py-1.5 font-medium;
+}
+@utility badge-pill {
+  @apply rounded-full;
+}
+@utility vp-button {
+  @apply inline-flex space-x-2 rtl:space-x-reverse justify-center;
+  @apply bg-gray-50 hover:bg-gray-100;
+  @apply text-gray-700 dark:text-light;
+  @apply text-sm font-medium leading-none;
+  @apply border border-inherit rounded-lg;
+  @apply px-5 py-2.5;
+  @apply focus:outline-hidden;
+  @apply cursor-pointer;
+  @apply appearance-none;
+  @apply transition-all;
+
+  @apply active:scale-95;
+  &:disabled {
+    @apply opacity-60 cursor-not-allowed;
+  }
+}
+@utility vp-button-* {
+  background-color: --value(--color- *);
+  border-color: --value(--color- *);
+  color: --value(--color-bg- *);
+  &:hover {
+    background-color: --value(--color- * -700);
+    border-color: --value(--color- * -700);
+  }
+
+  &:focus {
+    --tw-ring-color: --value(--color- * -300);
+  }
+
+  &.gradient {
+    background-image: linear-gradient(
+      to top left,
+      --value(--color- * -500),
+      --value(--color- *),
+      --value(--color- * -700)
+    );
+
+    &:hover {
+      background-image: linear-gradient(
+        to bottom right,
+        --value(--color- * -500),
+        --value(--color- *),
+        --value(--color- * -700)
+      );
+    }
+  }
+  @variant dark {
+    background-color: --value(--color- * -500);
+    border-color: --value(--color- * -500);
+    color: --value(--text-bg- *);
+    &:hover {
+      background-color: --value(--color- * -600);
+      border-color: --value(--color- * -600);
+    }
+
+    &:focus {
+      --tw-ring-color: --value(--color- * -300);
+    }
+  }
+}
+@utility vp-button-xxs {
+  @apply text-xxs px-1.5 py-1 flex-space-1;
+}
+@utility vp-button-xs {
+  @apply text-xs px-3 py-1.5 flex-space-1;
+}
+@utility vp-button-sm {
+  @apply text-sm px-3 py-2 flex-space-1;
+}
+@utility vp-button-lg {
+  @apply text-base px-5 py-3;
+}
+@utility vp-button-xl {
+  @apply text-lg px-6 py-4;
+}
+@utility vp-button-xxl {
+  @apply text-xl px-8 py-6;
+}

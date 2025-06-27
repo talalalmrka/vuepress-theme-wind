@@ -4,7 +4,7 @@ import {
     useReadingTimeData,
     useReadingTimeLocale,
 } from '@vuepress/plugin-reading-time/client'
-import { useData } from '@theme/client/composables';
+import { useData } from '@theme-wind/client/composables';
 const { themeLocale } = useData()
 const {
     // readingTimeIcon,

@@ -1,6 +1,6 @@
 @layer components {
   .vp-toc-placeholder {
-    @apply sticky mx-auto px-2 z-10 top-navbar;
+    @apply sticky mx-auto px-2 z-5 top-navbar;
   }
 
   .vp-toc {
@@ -15,7 +15,7 @@
     @apply transition-all;
     @apply text-sm;
     @apply lg:px-3 lg:py-2;
-    @apply bg-gray-50 dark:bg-gray-700 lg:bg-inherit;
+    @apply bg-gray-50 dark:bg-gray-700 lg:bg-transparent lg:dark:bg-transparent;
     @apply backdrop-blur-md saturate-150 lg:backdrop-blur-none lg:saturate-100;
     @apply border rounded-lg shadow-sm lg:border-0 lg:rounded-none lg:shadow-none;
     &.open {
@@ -78,26 +78,4 @@
   .vp-toc-marker {
     @apply hidden lg:block absolute start-0 top-0 z-[2] w-[2px] h-7 bg-primary transition-[top] duration-300;
   }
-  /*.vp-toc-wrapper > .vp-toc-list::before {
-    @apply absolute inset-y-0 start-1 -z-10 w-[2px] bg-gray-200 content-[''];
-  }
-
-  .vp-toc-marker {
-    @apply absolute start-1 top-0 z-[2] w-[2px] h-8 bg-primary transition-all duration-300;
-  }
-
-  .vp-toc-item {
-    @apply px-2 relative box-border h-8 list-none leading-8;
-  }
-
-  .vp-toc-link {
-    @apply text-sm relative block max-w-full text-gray-500 leading-[inherit] truncate;
-    &.active {
-      @apply text-primary font-semibold;
-    }
-  }
-
-  .vp-toc-header {
-    @apply pt-0 text-sm py-2 px-4 font-semibold flex justify-between items-center;
-  }*/
 }

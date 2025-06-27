@@ -7,11 +7,12 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@theme": ["./src"],
-      "@theme/*": ["./src/*"]
+      "@theme-wind": ["./src"],
+      "@theme-wind/*": ["./src/*"]
     }
   },
   "include": [
+    "env.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
@@ -25,6 +26,10 @@
     "src/node/**/*.ts",
     "src/node/**/*.d.ts",
     "src/node/**/*.tsx",
-    "src/node/**/*.vue"
+    "src/node/**/*.vue",
+    "plugins/**/*.ts",
+    "plugins/**/*.d.ts",
+    "plugins/**/*.tsx",
+    "plugins/**/*.vue"
   ]
 }

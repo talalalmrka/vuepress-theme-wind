@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useData } from '@theme/client/composables'
-import { useNavigate } from '@theme/client/composables/useNavigate'
-import { useRelatedLinks } from '@theme/client/composables/useRelatedLinks'
+import { useData } from '@theme-wind/client/composables'
+import { useNavigate } from '@theme-wind/client/composables/useNavigate'
+import { useRelatedLinks } from '@theme-wind/client/composables/useRelatedLinks'
 import { useEventListener } from '@vueuse/core'
 import { computed } from 'vue'
 

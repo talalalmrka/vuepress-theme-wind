@@ -2,6 +2,7 @@
 date: 2025-06-05
 title: Introduction
 icon: bi-stars
+order: 1
 ---
 
 ## Quick start

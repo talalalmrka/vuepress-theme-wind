@@ -5,82 +5,92 @@ import { HeroActionOptions } from "../../shared"
 
 const props = defineProps<{ config: HeroActionOptions }>()
 // keep all possible classes explicitly so Tailwind can detect them
-const colorClasses: Record<HeroActionOptions['color'], string> = {
-  primary: 'btn-primary',
-  secondary: 'btn-secondary',
-  light: 'btn-light',
-  dark: 'btn-dark',
-  red: 'btn-red',
-  orange: 'btn-orange',
-  amber: 'btn-amber',
-  yellow: 'btn-yellow',
-  lime: 'btn-lime',
-  green: 'btn-green',
-  emerald: 'btn-emerald',
-  teal: 'btn-teal',
-  cyan: 'btn-cyan',
-  sky: 'btn-sky',
-  blue: 'btn-blue',
-  indigo: 'btn-indigo',
-  violet: 'btn-violet',
-  purple: 'btn-purple',
-  fuchsia: 'btn-fuchsia',
-  pink: 'btn-pink',
-  rose: 'btn-rose',
-  slate: 'btn-slate',
-  gray: 'btn-gray',
-  zinc: 'btn-zinc',
-  neutral: 'btn-neutral',
-  stone: 'btn-stone',
+const colorClasses: Record<HeroActionOptions['type'], string> = {
+  primary: 'vp-button-primary',
+  secondary: 'vp-button-secondary',
+  light: 'vp-button-light',
+  dark: 'vp-button-dark',
+  red: 'vp-button-red',
+  orange: 'vp-button-orange',
+  amber: 'vp-button-amber',
+  yellow: 'vp-button-yellow',
+  lime: 'vp-button-lime',
+  green: 'vp-button-green',
+  emerald: 'vp-button-emerald',
+  teal: 'vp-button-teal',
+  cyan: 'vp-button-cyan',
+  sky: 'vp-button-sky',
+  blue: 'vp-button-blue',
+  indigo: 'vp-button-indigo',
+  violet: 'vp-button-violet',
+  purple: 'vp-button-purple',
+  fuchsia: 'vp-button-fuchsia',
+  pink: 'vp-button-pink',
+  rose: 'vp-button-rose',
+  slate: 'vp-button-slate',
+  gray: 'vp-button-gray',
+  zinc: 'vp-button-zinc',
+  neutral: 'vp-button-neutral',
+  stone: 'vp-button-stone',
 }
 
-const outlineClasses: Record<HeroActionOptions['color'], string> = {
-  primary: 'btn-outline-primary',
-  secondary: 'btn-outline-secondary',
-  light: 'btn-outline-light',
-  dark: 'btn-outline-dark',
-  red: 'btn-outline-red',
-  orange: 'btn-outline-orange',
-  amber: 'btn-outline-amber',
-  yellow: 'btn-outline-yellow',
-  lime: 'btn-outline-lime',
-  green: 'btn-outline-green',
-  emerald: 'btn-outline-emerald',
-  teal: 'btn-outline-teal',
-  cyan: 'btn-outline-cyan',
-  sky: 'btn-outline-sky',
-  blue: 'btn-outline-blue',
-  indigo: 'btn-outline-indigo',
-  violet: 'btn-outline-violet',
-  purple: 'btn-outline-purple',
-  fuchsia: 'btn-outline-fuchsia',
-  pink: 'btn-outline-pink',
-  rose: 'btn-outline-rose',
-  slate: 'btn-outline-slate',
-  gray: 'btn-outline-gray',
-  zinc: 'btn-outline-zinc',
-  neutral: 'btn-outline-neutral',
-  stone: 'btn-outline-stone',
+const outlineClasses: Record<HeroActionOptions['type'], string> = {
+  primary: 'vp-button-outline-primary',
+  secondary: 'vp-button-outline-secondary',
+  light: 'vp-button-outline-light',
+  dark: 'vp-button-outline-dark',
+  red: 'vp-button-outline-red',
+  orange: 'vp-button-outline-orange',
+  amber: 'vp-button-outline-amber',
+  yellow: 'vp-button-outline-yellow',
+  lime: 'vp-button-outline-lime',
+  green: 'vp-button-outline-green',
+  emerald: 'vp-button-outline-emerald',
+  teal: 'vp-button-outline-teal',
+  cyan: 'vp-button-outline-cyan',
+  sky: 'vp-button-outline-sky',
+  blue: 'vp-button-outline-blue',
+  indigo: 'vp-button-outline-indigo',
+  violet: 'vp-button-outline-violet',
+  purple: 'vp-button-outline-purple',
+  fuchsia: 'vp-button-outline-fuchsia',
+  pink: 'vp-button-outline-pink',
+  rose: 'vp-button-outline-rose',
+  slate: 'vp-button-outline-slate',
+  gray: 'vp-button-outline-gray',
+  zinc: 'vp-button-outline-zinc',
+  neutral: 'vp-button-outline-neutral',
+  stone: 'vp-button-outline-stone',
+}
+const sizeClasses: Record<HeroActionOptions['size'], string> = {
+  xxs: 'vp-button-xxs',
+  xs: 'vp-button-xs',
+  sm: 'vp-button-sm',
+  lg: 'vp-button-lg',
+  xl: 'vp-button-xl',
+  xxl: 'vp-button-xxl',
 }
 
 const buttonClass = computed(() => {
   // pull defaults and flags out once
   const {
-    color = 'primary',
+    type = 'primary',
     outline = false,
     rounded = true,
+    size = 'lg'
   } = props.config
 
   // choose from the correct map
-  const base = outline
-    ? outlineClasses[color]
-    : colorClasses[color]
-  return ["btn", "md:btn-lg", base, { 'pill': rounded }, props.config.class]
+  const colorClass = outline
+    ? outlineClasses[type]
+    : colorClasses[type]
+  const sizeClass = sizeClasses[size]
+  return ['vp-hero-action', 'vp-button', colorClass, sizeClass, { 'pill': rounded }, props.config.class]
 }) 
 </script>
 
 <template>
-  <RouteLink :to="config.link" :title="config.text" class="btn md:btn-lg pill" :class="buttonClass">
+  <RouteLink :to="config.link" :title="config.text" :class="buttonClass">
     <fg-icon v-if="config.icon" :icon="config.icon" />
     <span v-if="config.text">{{ config.text }}</span>
   </RouteLink>

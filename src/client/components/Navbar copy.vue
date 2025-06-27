@@ -3,7 +3,7 @@ import { resolveComponent, useTemplateRef, onMounted } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { hasGlobalComponent } from '@vuepress/helper/client'
 
-import { useData } from '@theme/client/composables'
+import { useData } from '@theme-wind/client/composables'
 const props = defineProps<{
   sidebarOpen?: boolean
   transparentTop?: boolean

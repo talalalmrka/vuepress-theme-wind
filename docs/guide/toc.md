@@ -1,5 +1,7 @@
 ---
 date: 2025-06-05
+title: Table of Contents
+icon: bi-table
 ---
 
 # Table of Contents
@@ -12,14 +14,14 @@ You can enable and configure the TOC in your theme options:
 
 ```ts
 // .vuepress/config.ts
-import { defineUserConfig } from "vuepress";
-import { fadgramTheme } from "vuepress-theme-fadgram";
+import { defineUserConfig } from 'vuepress'
+import { fadgramTheme } from 'vuepress-theme-fadgram'
 
 export default defineUserConfig({
   theme: fadgramTheme({
-    toc: true, // Enable TOC with default settings
-  }),
-});
+    toc: true // Enable TOC with default settings
+  })
+})
 ```
 
 For more control, you can provide detailed options:
@@ -29,14 +31,14 @@ For more control, you can provide detailed options:
 export default defineUserConfig({
   theme: fadgramTheme({
     toc: {
-      title: "Contents", // Custom title
+      title: 'Contents', // Custom title
       print: true, // Show print button
       marker: true, // Show active section marker
       offset: 100, // Offset for active header detection
-      delay: 300, // Delay before updating active header
-    },
-  }),
-});
+      delay: 300 // Delay before updating active header
+    }
+  })
+})
 ```
 
 ## Using the Composable
@@ -45,11 +47,10 @@ export default defineUserConfig({
 
 ```vue
 <script setup lang="ts">
-import { useTocOptions } from "@theme/client";
+import { useTocOptions } from '@theme/client'
 
 // Get TOC options
-const { isEnabled, title, showPrint, showMarker, offset, delay } =
-  useTocOptions();
+const { isEnabled, title, showPrint, showMarker, offset, delay } = useTocOptions()
 </script>
 
 <template>
@@ -66,16 +67,16 @@ Here's an example of a custom TOC component using the composable:
 
 ```vue
 <script setup lang="ts">
-import { useTocOptions } from "@theme/client";
-import { getHeaders } from "@vuepress/helper/client";
-import { ref, onMounted } from "vue";
+import { useTocOptions } from '@theme/client'
+import { getHeaders } from '@vuepress/helper/client'
+import { ref, onMounted } from 'vue'
 
-const { isEnabled, title, showMarker, offset, delay } = useTocOptions();
-const headers = ref([]);
+const { isEnabled, title, showMarker, offset, delay } = useTocOptions()
+const headers = ref([])
 
 onMounted(() => {
-  headers.value = getHeaders({ levels: "deep" });
-});
+  headers.value = getHeaders({ levels: 'deep' })
+})
 </script>
 
 <template>
@@ -123,41 +124,41 @@ onMounted(() => {
 
 ```vue
 <script setup lang="ts">
-import { useTocOptions } from "@theme/client";
-import { ref, onMounted, onUnmounted } from "vue";
+import { useTocOptions } from '@theme/client'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const { offset, delay } = useTocOptions();
-const activeHeader = ref("");
+const { offset, delay } = useTocOptions()
+const activeHeader = ref('')
 
 function setupObserver() {
   const options = {
-    rootMargin: `${-offset.value}px 0px -70% 0px`,
-  };
+    rootMargin: `${-offset.value}px 0px -70% 0px`
+  }
 
-  const observer = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver(entries => {
     // Add delay to prevent rapid changes
     setTimeout(() => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
-          activeHeader.value = entry.target.id;
-          break;
+          activeHeader.value = entry.target.id
+          break
         }
       }
-    }, delay.value);
-  }, options);
+    }, delay.value)
+  }, options)
 
   // Observe all headers
-  document.querySelectorAll("h2, h3, h4, h5, h6").forEach((header) => {
-    observer.observe(header);
-  });
+  document.querySelectorAll('h2, h3, h4, h5, h6').forEach(header => {
+    observer.observe(header)
+  })
 
-  return () => observer.disconnect();
+  return () => observer.disconnect()
 }
 
 onMounted(() => {
-  const cleanup = setupObserver();
-  onUnmounted(cleanup);
-});
+  const cleanup = setupObserver()
+  onUnmounted(cleanup)
+})
 </script>
 ```
 
@@ -165,12 +166,12 @@ onMounted(() => {
 
 ```vue
 <script setup lang="ts">
-import { useTocOptions } from "@theme/client";
+import { useTocOptions } from '@theme/client'
 
-const { showPrint } = useTocOptions();
+const { showPrint } = useTocOptions()
 
 function printPage() {
-  window.print();
+  window.print()
 }
 </script>
 
@@ -189,16 +190,16 @@ function printPage() {
 The composable provides full TypeScript support. Here's how to use the types:
 
 ```ts
-import type { TocOptions } from "@theme/shared";
+import type { TocOptions } from '@theme/shared'
 
 // Define custom TOC options
 const customTocOptions: TocOptions = {
-  title: "Page Contents",
+  title: 'Page Contents',
   print: true,
   marker: true,
   offset: 50,
-  delay: 200,
-};
+  delay: 200
+}
 ```
 
 ## Best Practices
@@ -215,16 +216,14 @@ const customTocOptions: TocOptions = {
 
 ```vue
 <script setup lang="ts">
-import { useTocOptions } from "@theme/client";
-import { useRoute } from "vue-router";
+import { useTocOptions } from '@theme/client'
+import { useRoute } from 'vue-router'
 
-const { isEnabled, title } = useTocOptions();
-const route = useRoute();
+const { isEnabled, title } = useTocOptions()
+const route = useRoute()
 
 // Only show TOC on documentation pages
-const showToc = computed(
-  () => isEnabled.value && route.path.startsWith("/guide/")
-);
+const showToc = computed(() => isEnabled.value && route.path.startsWith('/guide/'))
 </script>
 
 <template>
@@ -245,13 +244,13 @@ const showToc = computed(
 
 ```vue
 <script setup lang="ts">
-import { useTocOptions } from "@theme/client";
-import { useWindowSize } from "@vueuse/core";
+import { useTocOptions } from '@theme/client'
+import { useWindowSize } from '@vueuse/core'
 
-const { isEnabled } = useTocOptions();
-const { width } = useWindowSize();
+const { isEnabled } = useTocOptions()
+const { width } = useWindowSize()
 
-const showToc = computed(() => isEnabled.value && width.value >= 768);
+const showToc = computed(() => isEnabled.value && width.value >= 768)
 </script>
 
 <template>

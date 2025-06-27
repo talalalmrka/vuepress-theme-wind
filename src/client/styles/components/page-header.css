@@ -3,7 +3,7 @@
     @apply border-b mb-4;
   }
   .vp-page-title {
-    @apply flex-space-2 text-4xl;
+    @apply flex-space-2 text-2xl md:text-4xl;
   }
   .vp-page-title-icon {
     @apply text-primary;
@@ -13,6 +13,6 @@
     @apply pb-2;
   }
   .vp-page-info-item {
-    @apply inline-flex items-center space-x-1 rtl:space-x-reverse cursor-default text-sm text-muted;
+    @apply inline-flex items-center space-x-1 rtl:space-x-reverse cursor-default text-muted text-xs;
   }
 }

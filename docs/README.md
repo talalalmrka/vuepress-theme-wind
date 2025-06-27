@@ -4,21 +4,26 @@ home: true
 title: Home
 icon: bi-house
 heroText: Vuepress Theme Wind
-tagline: A beautiful VuePress theme using Fadgram UI and Tailwind CSS
+tagline: A vuepress tailwind theme
+heroAlt: Vuepress Theme Wind
 heroImage: /images/logo.svg
+heroImageDark: /images/logo-dark.svg
 bgImage: /images/hero-light.webp
 bgImageDark: /images/hero-dark.webp
+bgStyle:
+  attachment: fixed
+  blur: sm
 heroFullScreen: true
 actions:
   - text: Getting Started
     icon: bi-lightbulb
     link: /guide/getting-started
-    color: primary
+    type: primary
 
   - text: View On Github
     icon: bi-github
     link: https://github.com/yourusername/vuepress-theme-wind
-    color: light
+    type: secondary
 
 highlights:
   - header: Easy to install
@@ -309,5 +314,5 @@ highlights:
         link: https://theme-hope.vuejs.press/guide/advanced/pwa.html
 
 copyright: false
-footer: MIT Licensed | Copyright © 2019-present Mr.Hope
+footer: Copyrights reserved @ <a href="/" target="_blank">Fadgram</a> | 2025
 ---

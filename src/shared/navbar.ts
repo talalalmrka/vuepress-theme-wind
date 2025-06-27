@@ -51,3 +51,11 @@ export interface NavbarLayoutOptions {
   center?: string[]
   end?: string[]
 }
+
+export interface NavbarLocaleData {
+  // Aria label of of the language selection dropdown
+  selectLangAriaLabel: string
+
+  // Language name of current locale
+  langName: string
+}

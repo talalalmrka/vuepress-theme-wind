@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { Content } from 'vuepress/client'
 import { isArray } from "@vuepress/helper/client";
-import Hero from './Hero.vue';
+//import Hero from './Hero.vue';
 import FeatureSection from './FeatureSection.vue';
 import HighlightSection from './HighlightSection.vue';
 import { useData } from "../composables/useData";
+// import HeroInfo from "@theme-wind/client/components/home/HeroInfo";
+//import HeroInfo from "@theme-wind/client/components/home/HeroInfo.vue";
+
 import type { ThemeHomePageFrontmatter } from "../../shared/page";
 const { frontmatter } = useData<ThemeHomePageFrontmatter>();
 </script>
@@ -17,7 +20,7 @@ const { frontmatter } = useData<ThemeHomePageFrontmatter>();
                 <component v-for="(highlight, index) in frontmatter.highlights" :key="index"
                     :is="'features' in highlight ? FeatureSection : HighlightSection" v-bind="highlight" />
             </div>
-            <div vp-content>
+            <div class="container py-6" vp-content>
                 <Content />
             </div>
         </main>

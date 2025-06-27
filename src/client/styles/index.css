@@ -2,6 +2,7 @@
 @import 'fadgram-ui';
 @source "../../../**/*.vue";
 @source "../../../**/*.md";
+@source "../../../**/*.ts";
 @import './fonts/poppins/style.css';
 @import './variant.css';
 @import './theme.css';
@@ -10,66 +11,3 @@
 @import './icons.css';
 @import './base.css';
 @import './components.css';
-/* @layer components {
-  .vp-theme-content {
-    h1 {
-      @apply text-4xl font-bold mb-6;
-    }
-
-    h2 {
-      @apply text-3xl font-bold mb-4 mt-8;
-    }
-
-    h3 {
-      @apply text-2xl font-bold mb-3 mt-6;
-    }
-
-    p {
-      @apply mb-4 leading-7;
-    }
-
-    a {
-      @apply text-primary hover:text-primary-hover underline;
-    }
-
-    ul, ol {
-      @apply mb-4 pl-6;
-    }
-
-    ul {
-      @apply list-disc;
-    }
-
-    ol {
-      @apply list-decimal;
-    }
-
-    code {
-      @apply px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 font-mono text-sm;
-    }
-
-    pre {
-      @apply p-4 rounded-lg bg-gray-100 dark:bg-gray-800 overflow-x-auto mb-4;
-
-      code {
-        @apply bg-transparent p-0;
-      }
-    }
-
-    blockquote {
-      @apply pl-4 border-l-4 border-gray-200 dark:border-gray-700 italic my-4;
-    }
-
-    table {
-      @apply w-full border-collapse mb-4;
-
-      th, td {
-        @apply border border-gray-200 dark:border-gray-700 px-4 py-2;
-      }
-
-      th {
-        @apply bg-gray-50 dark:bg-gray-800;
-      }
-    }
-  }
-}  */

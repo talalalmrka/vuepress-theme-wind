@@ -52,12 +52,31 @@
       }
     }
   }
+  .vp-navbar-links-mobile {
+    @apply fixed inset-0 z-20;
+    @apply bg-body/70 dark:bg-body-dark/70;
+    @apply backdrop-blur-md saturate-150;
+    @apply pt-navbar w-full divide-y;
+    @apply flex flex-col;
+    @apply max-h-screen overflow-y-auto;
+    .vp-navbar-links-mobile-collapse {
+      @apply divide-y;
+    }
+    .vp-navbar-link-mobile {
+      @apply w-full px-3 py-2;
+    }
+  }
   .vp-navbar-link,
+  .vp-navbar-link-mobile,
   .vp-navbar-brand,
   .vp-sidebar-toggle {
     @apply flex-space-1 items-center text-sm font-medium;
     @apply text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100;
     @apply transition-colors duration-150 ease-in-out;
+    &.active,
+    &.route-link-active {
+      @apply text-primary dark:text-primary-400;
+    }
   }
   .vp-sidebar-toggle {
     @apply flex items-center text-2xl;
@@ -72,47 +91,5 @@
   .vp-dark-mode-link,
   .vp-repo-link {
     @apply text-lg;
-  }
-  .vp-dropdown {
-    @apply relative;
-    @variant hover {
-      .vp-dropdown-menu {
-        @apply visible;
-      }
-      .vp-dropdown-icon {
-        @apply rotate-180;
-      }
-    }
-  }
-  .vp-dropdown-menu {
-    @apply absolute z-50 min-w-42 flex flex-col;
-    @apply rounded-lg;
-    @apply bg-body/90 dark:bg-body-dark/90;
-    @apply backdrop-blur-md backdrop-saturate-150;
-    @apply border;
-    @apply shadow-xs;
-    @apply transition-all duration-150 ease-in-out;
-    @apply collapse;
-  }
-  .vp-dropdown-icon {
-    @apply text-xs;
-    @apply transition-all duration-150 ease-in-out;
-  }
-  .vp-dropdown-link {
-    @apply flex-space-1 inline-flex;
-    @apply px-3 py-2 text-sm font-medium;
-    @apply text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100;
-    @apply transition-all duration-150 ease-in-out w-full;
-    @apply hover:bg-black/5;
-    &:first-child {
-      @apply rounded-t-lg;
-    }
-    &:last-child {
-      @apply rounded-b-lg;
-    }
-    &.active,
-    &.route-link-active {
-      @apply text-primary dark:text-primary-400;
-    }
   }
 }

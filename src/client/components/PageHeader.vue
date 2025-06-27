@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useData } from '@theme/client/composables'
-import PageInfo from '@theme/client/components/PageInfo.vue'
+import { useData } from '@theme-wind/client/composables'
+import PageInfo from '@theme-wind/client/components/PageInfo.vue'
 const { page } = useData()
 </script>
 

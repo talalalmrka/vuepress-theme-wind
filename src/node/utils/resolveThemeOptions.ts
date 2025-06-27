@@ -1,4 +1,4 @@
-import type { ThemeOptions, WindThemeLocaleData } from '../../shared'
+import type { WindThemeOptions, WindThemeLocaleData } from '../../shared'
 import { DEFAULT_LOCALE_OPTIONS, DEFAULT_PLUGIN_OPTIONS } from '../../shared/defaultOptions'
 
 /**
@@ -43,7 +43,7 @@ const deepMerge = <T extends Record<string, any>>(
 /**
  * Resolve theme options with default values
  */
-export const resolveThemeOptions = (options: ThemeOptions): void => {
+export const resolveThemeOptions = (options: WindThemeOptions): void => {
   const { hostname, pluginOptions: userPluginOptions, plugins, ...localeOptions } = options
 
   // Merge locale options

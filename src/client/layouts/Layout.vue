@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { useData, useHasSidebar } from '@theme/client/composables'
-import { useScrollPromise } from '@theme/client/composables/useScrollPromise';
 import type { Slot } from '@vuepress/helper/client'
 import { computed, ref } from 'vue'
 import { onContentUpdated } from 'vuepress/client'
-
+import { useData, useHasSidebar } from '@theme-wind/client/composables'
+import { useScrollPromise } from '@theme-wind/client/composables/useScrollPromise';
 defineSlots<{
   'navbar'?: Slot
   'navbar-before'?: Slot
@@ -20,18 +19,24 @@ defineSlots<{
 }>()
 
 const { frontmatter, page, themeLocale } = useData()
-
 // sidebar
 const sidebarOpen = ref(false)
 function toggleSidebar() {
   sidebarOpen.value = !sidebarOpen.value
 }
 const hasSidebar = useHasSidebar()
-
+// external-link-icon
+const enableExternalLinkIcon = computed(
+  () =>
+    frontmatter.value.externalLinkIcon ??
+    themeLocale.value.externalLinkIcon ??
+    true,
+)
 // classes
 const containerClass = computed(() => [
   {
     'has-sidebar': hasSidebar,
+    'external-link-icon': enableExternalLinkIcon.value
   },
   frontmatter.value.pageClass,
 ])

@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useData } from './useData'
-import { BreadcrumbItem } from '@theme/shared'
-import { resolveAutoLink } from '@theme/client/utils/resolveAutoLink'
+import { BreadcrumbItem } from '@theme-wind/shared'
+import { resolveAutoLink } from '@theme-wind/client/utils/resolveAutoLink'
 
 export const useBreadcrumb = () => {
   const { page, themeLocale } = useData()

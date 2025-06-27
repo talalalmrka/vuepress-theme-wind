@@ -1,81 +1,145 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { isString } from '@vuepress/helper/client'
 import { withBase } from 'vuepress/client'
-import { useDark } from '@vueuse/core'
-import { useNavbarHeight, useData } from '../composables'
-import type { ThemeHomePageFrontmatter } from '../../shared/page'
-import { isString } from 'vuepress/shared'
+import { useData } from '@theme-wind/client/composables'
+import type { BgStyle, ThemeHomePageFrontmatter } from '@theme-wind/shared'
 
-const { frontmatter, } = useData<ThemeHomePageFrontmatter>()
-const isDark = useDark()
-
-const hasHero = computed(() => {
-  return frontmatter.value.heroImage
-    || frontmatter.value.heroImageDark
-    || frontmatter.value.bgImage
-    || frontmatter.value.bgImageDark
-    || frontmatter.value.actions
-    || frontmatter.value.heroText
-    || frontmatter.value.tagline
+const { frontmatter, siteLocale } = useData<ThemeHomePageFrontmatter>()
+const info = computed(() => {
+    const { heroText, tagline, heroStyle, heroFullScreen = false } = frontmatter.value
+    return {
+        text: heroText ?? siteLocale.value.title ?? 'Hello',
+        tagline: tagline ?? siteLocale.value.description ?? '',
+        style: heroStyle ?? null,
+        isFullScreen: heroFullScreen,
+    }
 })
 
-const heroImage = computed(() => {
-  const img = isDark.value && frontmatter.value.imageDark ? frontmatter.value.imageDark : frontmatter.value.heroImage
-  return isString(img) ? withBase(img) : null
+const image = computed(() => {
+    const { heroImage, heroImageDark, heroAlt, heroImageClass, heroImageDarkClass } = frontmatter.value
+    return {
+        image: heroImage ? withBase(heroImage) : null,
+        imageDark: heroImageDark ? withBase(heroImageDark) : null,
+        alt: heroAlt ?? '',
+        class: heroImageClass,
+        classDark: heroImageDarkClass ?? heroImageClass
+    }
 })
-const bgImage = computed(() => {
-  const img = isDark.value && frontmatter.value.bgImageDark ? frontmatter.value.bgImageDark : frontmatter.value.bgImage
-  return isString(img) ? withBase(img) : null
-})
-const bgStyle = computed(() => {
-  return {
-    backgroundImage: `url(${bgImage.value})`
-  }
-})
-const hasHighlights = (): boolean => {
-  const highlights = computed(() => frontmatter.value.highlights ?? [])
-  return highlights.value.length > 0
+const blurClasses: Record<BgStyle['blur'], string> = {
+    xs: 'after:backdrop-blur-xs',
+    sm: 'after:backdrop-blur-sm',
+    md: 'after:backdrop-blur-md',
+    lg: 'after:backdrop-blur-lg',
+    xl: 'after:backdrop-blur-xl',
+    '2xl': 'after:backdrop-blur-2xl',
+    '3xl': 'after:backdrop-blur-3xl',
+    none: 'after:bacdrop-blur-none',
 }
+const bg = computed(() => {
+    const { bgImage, bgImageClass, bgImageDark, bgImageDarkClass, bgStyle } = frontmatter.value
+    const defaultBgStyle: BgStyle = {
+        position: 'center',
+        attachment: 'fixed',
+        repeat: 'no-repeat',
+        size: 'cover',
+        blur: 'xs',
+    }
+    const backgroundStyle: BgStyle = {
+        ...defaultBgStyle,
+        ...bgStyle
+    }
+    const blurClass = blurClasses[backgroundStyle.blur]
+    return {
+        image: isString(bgImage) ? withBase(bgImage) : null,
+        imageDark: isString(bgImageDark) ? withBase(bgImageDark) : null,
+        class: [
+            'vp-hero-mask',
+            blurClass,
+        ],
+        classLight: [
+            {
+                'vp-hero-mask-light': bgImageDark
+            },
+            bgImageClass
+        ],
+        classDark: [
+            'vp-hero-mask-dark',
+            bgImageDarkClass ?? bgImageClass
+        ],
+        style: {
+            'background-position': backgroundStyle.position,
+            'background-attachment': backgroundStyle.attachment,
+            'background-repeat': backgroundStyle.repeat,
+            'background-size': backgroundStyle.size
+        }
+    }
+})
+
+const actions = computed(() => frontmatter.value.actions ?? [])
+const hasHighlights = (frontmatter.value.highlights ?? []).length;
+const navbarHeight = computed(() => {
+    const navbar = document.querySelector<HTMLElement>('[vp-navbar]')
+    return navbar ? navbar.offsetHeight : 0
+})
 const scrollToHighlights = (): void => {
-  const target = document.getElementById('highlights-container')
-  if (target) {
-    const navbarHeight = useNavbarHeight()
-    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset
-    const scrollPosition = targetPosition - navbarHeight.value
-    window.scrollTo({
-      top: scrollPosition,
-      behavior: 'smooth'
-    })
-  }
+    const target = document.getElementById('highlights-container')
+    if (target) {
+        const targetPosition = target.getBoundingClientRect().top + window.scrollY
+        const scrollPosition = targetPosition - navbarHeight.value
+        window.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+        })
+    }
 }
 </script>
 <template>
-  <section v-if="hasHero" class="relative" :class="[frontmatter.heroClass, {
-    'h-screen': frontmatter.heroFullScreen || false,
-    // 'min-h-[400px]': !frontmatter.heroFullScreen || false,
-    'bg-cover': frontmatter.bgStyle?.cover || true,
-    'bg-repeat': frontmatter.bgStyle?.repeat || false,
-    'bg-no-repeat': !frontmatter.bgStyle?.repeat || false,
-    'bg-center': frontmatter.bgStyle?.center || true,
-    'bg-fixed': frontmatter.bgStyle?.fixed || true
-  }]" :style="bgStyle">
-    <div
-      class=" inset-0 flex flex-col justify-center items-center bg-white/30 dark:bg-gray-900/30 backdrop-blur-lg backdrop-opacity-80 py-30"
-      :class="{ 'h-full': frontmatter.heroFullScreen || false }">
-      <img v-if="heroImage" :src="heroImage" :alt="frontmatter.heroAlt" class="w-32 h-auto mb-4" />
-      <h1 v-if="frontmatter.heroText" class="text-4xl md:text-6xl font-bold text-center text-gradient-primary">
-        {{ frontmatter.heroText }}
-      </h1>
-      <p v-if="frontmatter.tagline" class="mt-2 text-lg md:text-xl text-center">
-        {{ frontmatter.tagline }}
-      </p>
-      <div v-if="frontmatter.actions" class="mt-6 flex flex-col md:flex-row gap-4">
-        <HeroAction v-for="action in frontmatter.actions" :config="action" />
-      </div>
-    </div>
-    <button v-if="hasHighlights" type="button" aria-label="Scroll to highlights" @click.prevent="scrollToHighlights"
-      class="absolute start-1/2 -translate-x-1/2 top-full animate-bounce text-2xl -translate-y-full -mt-8 bg-body/30 dark:bg-body-dark/30 backdrop-blur-md saturate-150 rounded-full w-10 h-10 flex items-center justify-center">
-      <fg-icon icon="bi-chevron-double-down" />
-    </button>
-  </section>
+    <header :class="['vp-hero', { 'hero-fullscreen': info.isFullScreen }]">
+        <!-- Background images -->
+        <div v-if="bg.image" :class="[bg.class, bg.classLight]"
+            :style="[bg.style, { backgroundImage: `url(${bg.image})` }]" />
+        <div v-if="bg.imageDark" :class="[bg.class, bg.classDark]"
+            :style="[bg.style, { backgroundImage: `url(${bg.imageDark})` }]" />
+
+        <!-- Main content -->
+        <div class="vp-hero-info">
+
+            <!-- heroLogo slot or default image -->
+            <slot name="heroLogo" v-bind="image">
+                <DropTransition appear group>
+                    <template #default>
+                        <img v-if="image.image" key="light" class="vp-hero-image"
+                            :class="[image.class, { 'vp-hero-image-light': image.imageDark }]" :src="image.image"
+                            :alt="image.alt" />
+                        <img v-if="image.imageDark" key="dark" class="vp-hero-image vp-hero-image-dark"
+                            :class="image.classDark" :src="image.imageDark" :alt="image.alt" />
+                    </template>
+                </DropTransition>
+            </slot>
+
+            <!-- heroInfo slot or default texts & actions -->
+            <slot name="heroInfo" v-bind="info">
+                <div class="vp-hero-infos">
+                    <DropTransition v-if="info.text" appear :delay="0.04">
+                        <h1 id="main-title" class="vp-hero-title">{{ info.text }}</h1>
+                    </DropTransition>
+
+                    <DropTransition v-if="info.tagline" appear :delay="0.08">
+                        <div id="main-description" v-html="info.tagline" />
+                    </DropTransition>
+
+                    <DropTransition v-if="actions.length" appear :delay="0.12">
+                        <p class="vp-hero-actions">
+                            <HeroAction v-for="(action, idx) in actions" :key="idx" :config="action" />
+                        </p>
+                    </DropTransition>
+                </div>
+            </slot>
+        </div>
+        <button v-if="hasHighlights" @click.prevent="scrollToHighlights" type="button"
+            class="vp-hero-slide-down-button">
+            <fg-icon icon="bi-chevron-double-down" />
+        </button>
+    </header>
 </template>
