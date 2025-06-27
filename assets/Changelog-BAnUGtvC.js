@@ -1,0 +1,1 @@
+import{f as a,s as n,r as t,c as s,k as c,u as o,o as r,a as l}from"./app-UqxEsns9.js";const g={key:0,class:"changelog-container"},h=a({__name:"Changelog",setup(m){const e=n("GitChangelog")?t("GitChangelog"):()=>null;return(_,i)=>o(e)?(r(),s("div",g,[l(o(e))])):c("",!0)}});export{h as default};

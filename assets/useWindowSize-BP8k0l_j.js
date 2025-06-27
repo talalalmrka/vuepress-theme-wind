@@ -1,0 +1,1 @@
+import{h as s,Z as o,J as t}from"./app-UqxEsns9.js";const r=()=>{const n=s(!1),i=s(!1),e=()=>{n.value=window.innerWidth<=719,i.value=window.innerWidth>=1440};return o("resize",e,!1),o("orientationchange",e,!1),t(()=>{e()}),{isMobile:n,isPC:i}};export{r as u};

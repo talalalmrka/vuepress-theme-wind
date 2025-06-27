@@ -1,0 +1,4 @@
+User-agent:*
+Disallow:
+
+Sitemap: https://talalalmrka.github.io/vuepress-theme-wind/vuepress-theme-wind/sitemap.xml

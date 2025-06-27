@@ -1,0 +1,1 @@
+import{u as n}from"./useNavbarSelectLanguage-DYfQ2cPw.js";import{f as o,r,j as s,k as c,u as a,o as m}from"./app-UqxEsns9.js";const f=o({__name:"SelectLanguage",setup(u){const e=n();return(p,_)=>{const t=r("NavbarLink");return a(e)?(m(),s(t,{key:0,item:a(e)},null,8,["item"])):c("",!0)}}});export{f as default};
